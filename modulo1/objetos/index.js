@@ -31,7 +31,7 @@
 //console.log(minhaFuncao(pessoa, "altura"))
 //Imprimiu "undefined".
 
-//b. O valor do objeto não foi definido. 
+//b. A chave do objeto não foi definida. 
 
 //Exercícios de escrita de código
 //1.
