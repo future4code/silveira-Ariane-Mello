@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Adicionar Produto</title>
-</head>
-<body>
-    <div>
-        <p><i>Desserts Tier</i> 🍪🍰🍫 </p>
-    </div>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@1,300&display=swap" rel="stylesheet">
     
-    <div>
+    <title>@devstore 💻☕</title>
+</head>
+
+    <div class="menu">
+        <br>
         <a href="index.html">Página Inicial |</a>
         <a href="ctrl-estoque.html">Controle de Estoque |</a>
         <a href="add-produto.html">Adicionar Produto |</a>
@@ -19,34 +21,30 @@
     </div>
 
     
-    <h2>Adicionar Produto</h2>
+    <h2 class="produtos">Adicionar Produto</h2>
     <form action="">
         <div>
             <label for="link-foto">Link para foto: </label>
             <input type="url" id="link-foto" name="link-foto">
         </div>
-        
+        <br>
         <div>
             <label for="descricao">Descrição do produto: </label>
-            <!-- Adicione o id apropriado para o input abaixo -->
             <input type="text" id="descricao" name="descrição">
         </div>
-        
+        <br>
         <div>
             <label for="preco">Preço (em R$): </label>
-            <!-- Adicione o id apropriado e o type para receber números abaixo -->
             <input type="" id="preco" name="preço">
         </div>
-        
+        <br>
         <div>
-            <!-- Preencha as propriedades necessárias para os elementos abaixo -->
             <label>Quantidade disponível: </label>
             <input type="number" id="quantidade" name="quantidade">
             <input>
         </div>
-
+        <br>
         <div class="form-add">
-            <!-- Adicione ao type do botão abaixo o valor para que ele submeta o formulário -->
             <button type="submit">Adicionar</button>
         </div>
 
