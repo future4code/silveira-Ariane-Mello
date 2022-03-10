@@ -1,9 +1,9 @@
 body {
-    background: #EEE6DD;
+    background: #DAD3CD;
     font-family: 'Fira Sans', sans-serif;
 }
 
-.imagens img {
+.fotos-produtos img {
     max-width:200px;
     max-height:150px;
     width: auto;
@@ -11,9 +11,10 @@ body {
     text-align: center;
 }
 
-.home {
-    color: #8b5742;
+.frase-home {
+    color: #92897B;
 }
+
 table {
     border-collapse: collapse;
     margin-left: auto;
@@ -23,16 +24,22 @@ table {
 }
 
 table, th, td {
-    background:#EEE6DD;
-    border: 0.5px solid #8b5742;
+    background:#DAD3CD;
+    border: 0.5px solid #A1BABB;
     text-align: center;
 }
 
 .menu{
     text-align: center;
+    color: #454940;
 }
 
-.centro{
+.ola-home{
+    text-align: center;
+    color: #454940;
+}
+
+.imagem-home{
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -40,24 +47,20 @@ table, th, td {
     text-align: center;
 }
 
-.redes-sociais
-{
+.redes-sociais{
     text-align: center;
 }
 
 .funcionarios
 {
-    color: #8b5742;
-    
+    color: #454940;
 }
 
-.estoque
-{
+.estoque{
     text-align: center; 
-    color: #8b5742;
+    color: #454940;
 }
 
-.produtos
-{
-    color: #8b5742;
-}
+.produtos{
+    color: #454940;
+} 
