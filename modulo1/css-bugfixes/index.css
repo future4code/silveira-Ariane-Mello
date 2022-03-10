@@ -129,3 +129,7 @@ td button {
 #back-button:hover {
     background-color: #635a3d
 }
+
+.td-img{
+    width: 60px;
+}
