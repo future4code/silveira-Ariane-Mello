@@ -13,7 +13,7 @@ header {
 
 .search {
     height: 35px;
-    width: 150px;
+    width: 200px;
     margin-right: 20px;
 }
 
@@ -33,5 +33,12 @@ footer {
 .galeria {
     width: 250px;
     height: 250px;
-    padding: 40px;
+    padding: 34px;
+    align-items: center;
+}
+
+main {
+    display: grid;
+    justify-content: center;
+    align-items: center;
 }
