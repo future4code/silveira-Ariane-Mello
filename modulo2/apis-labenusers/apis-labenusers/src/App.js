@@ -1,35 +1,35 @@
 import React from 'react';
-import CriarUsuario from './components/CriarUsuario';
-import styled from 'styled-components';
-import ListarUsuario from './components/ListarUsuario';
-
-const headers = {
-  headers: {
-    Authorization: "ariane-mello-silveira",
-  }
-}
-
-const baseUrl =
-  "https://us-central1-labenu-apis.cloudfunctions.net/labenusers"
+import TelaCadastro from './components/TelaCadastro';
+import TelaListaUsuarios from './components/TelaListaUsuarios';
 
 export default class App extends React.Component {
   state = {
-    pagina: "cadastro"
-  };
+    telaAtual: "cadastro"
+  }
 
-  trocarTela = () => {
-    if (this.state.pagina === "cadastro") {
-      this.setState({ pagina: "usuário" });
-    } else {
-      this.setState({ pagina: "cadastro" });
+  escolheTela = () => {
+    switch (this.state.telaAtual) {
+      case "cadastro":
+        return <TelaCadastro irParaLista={this.irParaLista} />
+      case "lista":
+        return <TelaListaUsuarios irParaCadastro={this.irParaCadastro} />
+      default:
+        return <div>Erro! Página não encontrada</div> 
     }
-  };
+  }
+
+  irParaCadastro = () => {
+    this.setState({ telaAtual: "cadastro" })
+  }
+
+  irParaLista = () => {
+    this.setState({ telaAtual: "lista" })
+  }
 
   render() {
     return (
       <div>
-        <button onClick={this.trocarTela}> Trocar tela</button>
-        {this.state.pagina === "cadastro" ? <CriarUsuario /> : <ListarUsuario />}
+        {this.escolheTela()}
       </div>
     )
   }
