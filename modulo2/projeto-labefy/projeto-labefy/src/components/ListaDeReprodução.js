@@ -1,6 +1,6 @@
-import React from 'react';
-import axios from 'axios';
-import styled from 'styled-components';
+import React from 'react'
+import axios from 'axios'
+import styled from 'styled-components'
 
 const ContainerLista = styled.div`
 background-color: #EDD8E6;
@@ -11,8 +11,11 @@ align-items: center;
 `
 const ContainerPlaylist = styled.div`
 border: 5px outset #CACCDF; 
+border-radius: 80px;
+margin: 15px;
+padding: 15px;
 text-align: center;
-width: 25vw;
+width: 30vw;
 height: 50vh;
 align-items: center;
 display: flex;
@@ -23,37 +26,40 @@ font-family: 'Roboto';
 flex-direction: column;
     button{
         cursor: pointer;
+        margin: 5px;
+        padding: 3px;
             &:hover{
                 color: #D30070;
                 background: #CACCDF;
     }
 `
 
-export default class ListaPlaylist extends React.Component {
+export default class ListaDeReproducao extends React.Component {
     state = {
-        playlist: []
-    }
+        playlists: [],
 
+    }
     componentDidMount() {
-        this.pegarPlaylist()
+        this.verPlaylist()
+
     }
 
-    pegarPlaylist = () => {
-        const url = "https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists"
 
+    verPlaylist = () => {
+        const url = "https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists"
         axios.get(url, {
             headers: {
                 Authorization: "ariane-mello-silveira"
             }
+
         })
             .then((res) => {
-                this.setState({ playlist: res.data.result.list })
+                this.setState({ playlists: res.data.result.list })
             })
             .catch((err) => {
-                alert("Ocorreu um problema, tente novamente")
+                alert("Ocorreu um erro, tente novamente")
             })
     }
-
     deletarPlaylist = (id) => {
         const url = `https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists/${id}`
         axios.delete(url, {
@@ -61,33 +67,38 @@ export default class ListaPlaylist extends React.Component {
                 Authorization: "ariane-mello-silveira"
             }
         })
-
             .then((res) => {
                 alert("Playlist deletada com sucesso!")
-                this.pegarPlaylist()
+                this.verPlaylist()
             })
+
             .catch((err) => {
                 alert("Ocorreu um erro, tente novamente")
             })
     }
 
     render() {
-        const listaMusicas = this.state.playlist.map((user) => {
+        const listaDePlaylists = this.state.playlists.map((user) => {
             return <div key={user.id}>
-                {user.name}
-                <button onClick={() => this.deletarPlaylist(user.id)}>X</button>
+                <div>
+                    <button onClick={() => this.props.detalhesPlaylist(user.id)}>Detalhes</button>
+                    {user.name}
+                    <button onClick={() => this.deletarPlaylist(user.id)}>🗑️</button>
+                </div>
             </div>
         })
+
 
         return (
             <div>
                 <ContainerLista>
                     <ContainerPlaylist>
-                        <h2>Veja suas Playlists aqui 🎧</h2>
-                        {listaMusicas}
-                    </ContainerPlaylist>
+                        <h2>Veja suas Playlists 🎧</h2>
+                        {listaDePlaylists}
+                        <button onClick={this.props.irParaHome}>Voltar</button>
+                    </ContainerPlaylist >
                 </ContainerLista>
             </div>
         )
     }
-} 
+}

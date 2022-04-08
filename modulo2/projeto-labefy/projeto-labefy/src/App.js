@@ -1,9 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
-import axios from 'axios';
-import CriarPlaylist from './components/CriarPlaylist';
+import React from 'react'
+import CriarPlaylist from './components/CriarPlaylist'
+import ListaDeReproducao from './components/ListaDeReprodução'
+import DetalhesPlaylist from './components/DetalhesPlaylist'
+import AddMusica from './components/AddMusica'
 import { createGlobalStyle } from 'styled-components';
-import ListaPlaylist from './components/ListaPlaylist';
+import styled from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -15,32 +16,39 @@ const GlobalStyle = createGlobalStyle`
 
 export default class App extends React.Component {
   state = {
-    telaAtual: "criarplaylist"
-  }
+    telaAtual: "criarplaylist",
+    idPlayList: "",
+    namePlaylist: ""
 
+  }
   escolheTela = () => {
     switch (this.state.telaAtual) {
       case "criarplaylist":
-        return <CriarPlaylist irParaLista={this.irParaLista} />
-        case "listaMusicas":
-        return <ListaPlaylist irParaCriar={this.irParaCriar} />
-      default:
-        return <div>Erro! Página não encontrada</div> 
+        return <CriarPlaylist irParaListaPlaylist={this.irParaListaPlaylist} />
+      case "listaplaylist":
+        return <ListaDeReproducao detalhesPlaylist={this.detalhesPlaylist} irParaHome={this.irParaHome} />
+      case "detalhes":
+        return <DetalhesPlaylist idPlaylist={this.state.idPlayList} namePlaylist={this.state.namePlaylist} irParaHome={this.irParaHome} />
+      case "detalhes":
     }
   }
 
-  irParaCriar = () => {
-    this.setState({ telaAtual: "criarPlaylist" })
+  irParaListaPlaylist = () => {
+    this.setState({ telaAtual: "listaplaylist" })
   }
 
-  irParaLista = () => {
-    this.setState({ telaAtual: "listaMusicas" })
+  irParaHome = () => {
+    this.setState({ telaAtual: "criarplaylist" })
+  }
+
+  detalhesPlaylist = (id, name) => {
+    this.setState({ telaAtual: "detalhes", idPlayList: id, namePlaylist: name })
   }
 
   render() {
     return (
       <div>
-        <GlobalStyle/>
+        <GlobalStyle />
         {this.escolheTela()}
       </div>
     )
