@@ -1,22 +1,24 @@
 import React from 'react'
-import axios from 'axios'
 import styled from 'styled-components'
+import axios from 'axios'
 
-const ContainerDetalhes = styled.div`
-background-color: #EDD8E6;
+const ContainerDiv = styled.div`
+background-color: #ACB4C4;
 height: 100vh;
 display: flex;
 justify-content: center;
 align-items: center;
 `
-const ContainerDetalhesPlaylist = styled.div`
-border: 5px outset #CACCDF; 
-border-radius: 80px;
+
+const ContainerDetalhes = styled.div`
+color: #181B25; 
+border: 5px double #606C8E;
+border-radius: 100px;
 margin: 15px;
 padding: 15px;
 text-align: center;
-width: 30vw;
-height: 50vh;
+width: 40vw;
+height: 90vh;
 align-items: center;
 display: flex;
 justify-content: center;
@@ -25,12 +27,12 @@ line-height: 50px;
 font-family: 'Roboto';
 flex-direction: column;
     button{
+        cursor: pointer;
         margin: 5px;
         padding: 3px;
-        cursor: pointer;
             &:hover{
-                color: #D30070;
-                background: #CACCDF;
+                color: #ACB4C4;            
+                background: #36456F;
     }
 `
 
@@ -43,23 +45,50 @@ const headers = {
 
 export default class DetalhesPlaylist extends React.Component {
     state = {
+        nomeMusica: "",
+        artista: "",
+        url: "",
         detalhes: []
     }
     componentDidMount() {
         this.detalhesDaPlaylist()
     }
-    detalhesDaPlaylist = () => {
-        const url = `https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists/${this.props.idPlaylist}/tracks`
-        axios.get(url, headers)
+    onChangeNomeMusica = (event) => {
+        this.setState({ nomeMusica: event.target.value })
+    }
+    onChangeArtista = (event) => {
+        this.setState({ artista: event.target.value })
+    }
+    onChangeUrl = (event) => {
+        this.setState({ url: event.target.value })
+    }
+    addMusicas = () => {
+        const body = {
+            name: this.state.nomeMusica,
+            artist: this.state.artista,
+            url: this.state.url
+        }
 
+        const url = `https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists/${this.props.idPlayList}/tracks`
+
+        axios.post(url, body, headers)
             .then((res) => {
-                console.log(res.data)
-                this.setState({ detalhes: res.data.result.tracks })
-
+                this.setState({ nomeMusica: "", artista: "", url: "" })
+                alert("Música adicionada com sucesso!")
             })
             .catch((err) => {
-                console.log("Erro, tente novamente!!!")
+                alert("Erro! Preencha todos os campos")
+            })
+    }
 
+    detalhesDaPlaylist = () => {
+        const url = `https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists/${this.props.idPlayList}/tracks`
+        axios.get(url, headers)
+            .then((res) => {
+                this.setState({ detalhes: res.data.result.tracks })
+            })
+            .catch((err) => {
+                alert("Ocorreu um erro, tente novamente")
             })
     }
 
@@ -67,39 +96,37 @@ export default class DetalhesPlaylist extends React.Component {
         const detalhesPlaylist = this.state.detalhes.map((informa) => {
             return (
                 <div key={informa.id}>
-                    <p>{informa.name} - {informa.artist}</p>
-                    <audio src={informa.url} controls loop></audio>
+                    <li>{informa.name} - {informa.artist}</li>
+                    <audio width="300" height="32" controls="controls" src={informa.url} type="audio/mp3"></audio>
                 </div>
             )
         })
 
         return (
-            <div>
+            <ContainerDiv>
                 <ContainerDetalhes>
-                    <ContainerDetalhesPlaylist>
-                        <h2>Detalhes das suas Playlists 🎧</h2>
-                        {detalhesPlaylist}
-
-                        <input
-                            placeholder={"Nome da Música"}
-                            value={this.state.nomePlaylist}
-                            onChange={this.handleNomePlaylist}
-                        />
-                        <input
-                            placeholder={"Nome do(a) Artista"}
-                            value={this.state.nomePlaylist}
-                            onChange={this.handleNomePlaylist}
-                        />
-                        <input
-                            placeholder={"URL da Música"}
-                            value={this.state.nomePlaylist}
-                            onChange={this.handleNomePlaylist}
-                        />
-                        <button onClick={this.props.AddMusica}>Adicionar Música</button>
-                        <button onClick={this.props.irParaHome}>Voltar</button>
-                    </ContainerDetalhesPlaylist>
+                    <h1>Labefy ▶️</h1>
+                    <h2>Curta suas músicas 🔊</h2>
+                    {detalhesPlaylist}
+                    <input
+                        placeholder={"Nome da música"}
+                        value={this.state.nomeMusica}
+                        onChange={this.onChangeNomeMusica}
+                    />
+                    <input
+                        placeholder={"Nome do(a) cantor/banda"}
+                        value={this.state.artista}
+                        onChange={this.onChangeArtista}
+                    />
+                    <input
+                        placeholder={"Link da música"}
+                        value={this.state.url}
+                        onChange={this.onChangeUrl}
+                    />
+                    <button onClick={this.addMusicas}>Adicionar</button>
+                    <button onClick={this.props.irParaHome}>Voltar</button>
                 </ContainerDetalhes>
-            </div>
+            </ContainerDiv>
         )
     }
 }

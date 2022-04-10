@@ -1,22 +1,24 @@
-import axios from 'axios'
 import React from 'react'
 import styled from 'styled-components'
+import axios from 'axios'
 
-const ContainerCriar = styled.div`
-background-color: #EDD8E6;
+const ContainerDiv = styled.div`
+background-color: #ACB4C4;
 height: 100vh;
 display: flex;
 justify-content: center;
 align-items: center;
 `
-const ContainerNome = styled.div`
-border: 5px outset #CACCDF; 
-border-radius: 80px;
+
+const ContainerCriar = styled.div`
+color: #181B25; 
+border: 5px double #606C8E;
+border-radius: 100px;
 margin: 15px;
 padding: 15px;
 text-align: center;
-width: 30vw;
-height: 50vh;
+width: 40vw;
+height: 90vh;
 align-items: center;
 display: flex;
 justify-content: center;
@@ -29,15 +31,14 @@ flex-direction: column;
         margin: 5px;
         padding: 3px;
             &:hover{
-                color: #D30070;
-                background: #CACCDF;
+                color: #ACB4C4;            
+                background: #36456F;
     }
 `
 
 export default class CriarPlaylist extends React.Component {
     state = {
         nomePlaylist: "",
-
     }
 
     handleNomePlaylist = (event) => {
@@ -49,35 +50,37 @@ export default class CriarPlaylist extends React.Component {
         const body = {
             name: this.state.nomePlaylist
         }
+
         axios.post(url, body, {
             headers: {
                 Authorization: "ariane-mello-silveira"
             }
-            })
+        })
             .then((res) => {
                 alert("Playlist criada com sucesso!")
                 this.setState({ nomePlaylist: "" })
             })
             .catch((err) => {
-                alert("Erro! Preencha o Nome da sua Playlist")
+                alert("Erro! Preencha o campo nome da sua playlist")
             })
     }
 
     render() {
         return (
             <div>
-                <ContainerCriar>
-                    <ContainerNome>
-                        <h2>Crie suas Playlists aqui 🎧</h2>
+                <ContainerDiv>
+                    <ContainerCriar>
+                        <h1>Labefy ▶️</h1>
+                        <h2>Crie suas playlists aqui 🎧</h2>
                         <input
-                            placeholder={"Nome da sua Playlist"}
+                            placeholder={"Nome da sua playlist"}
                             value={this.state.nomePlaylist}
                             onChange={this.handleNomePlaylist}
                         />
-                        <button onClick={this.criarPlaylist}>Criar Playlists</button>
-                        <button onClick={this.props.irParaListaPlaylist}>Veja suas Playlists</button>
-                    </ContainerNome>
-                </ContainerCriar>
+                        <button onClick={this.criarPlaylist}>Criar playlist</button>
+                        <button onClick={this.props.irParaListaPlaylist}>Suas playlists</button>
+                    </ContainerCriar>
+                </ContainerDiv>
             </div>
         )
     }

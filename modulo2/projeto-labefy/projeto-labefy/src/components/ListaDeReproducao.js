@@ -1,22 +1,24 @@
 import React from 'react'
-import axios from 'axios'
 import styled from 'styled-components'
+import axios from 'axios'
 
-const ContainerLista = styled.div`
-background-color: #EDD8E6;
+const ContainerDiv = styled.div`
+background-color: #ACB4C4;
 height: 100vh;
 display: flex;
 justify-content: center;
 align-items: center;
 `
-const ContainerPlaylist = styled.div`
-border: 5px outset #CACCDF; 
-border-radius: 80px;
+
+const ContainerLista = styled.div`
+color: #181B25; 
+border: 5px double #606C8E;
+border-radius: 100px;
 margin: 15px;
 padding: 15px;
 text-align: center;
-width: 30vw;
-height: 50vh;
+width: 40vw;
+height: 90vh;
 align-items: center;
 display: flex;
 justify-content: center;
@@ -29,21 +31,19 @@ flex-direction: column;
         margin: 5px;
         padding: 3px;
             &:hover{
-                color: #D30070;
-                background: #CACCDF;
+                color: #ACB4C4;            
+                background: #36456F;
     }
 `
 
 export default class ListaDeReproducao extends React.Component {
     state = {
         playlists: [],
-
     }
+
     componentDidMount() {
         this.verPlaylist()
-
     }
-
 
     verPlaylist = () => {
         const url = "https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists"
@@ -51,15 +51,16 @@ export default class ListaDeReproducao extends React.Component {
             headers: {
                 Authorization: "ariane-mello-silveira"
             }
-
         })
             .then((res) => {
                 this.setState({ playlists: res.data.result.list })
             })
+
             .catch((err) => {
                 alert("Ocorreu um erro, tente novamente")
             })
     }
+
     deletarPlaylist = (id) => {
         const url = `https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists/${id}`
         axios.delete(url, {
@@ -68,7 +69,7 @@ export default class ListaDeReproducao extends React.Component {
             }
         })
             .then((res) => {
-                alert("Playlist deletada com sucesso!")
+                alert("Playlist removida com sucesso!")
                 this.verPlaylist()
             })
 
@@ -81,24 +82,22 @@ export default class ListaDeReproducao extends React.Component {
         const listaDePlaylists = this.state.playlists.map((user) => {
             return <div key={user.id}>
                 <div>
-                    <button onClick={() => this.props.detalhesPlaylist(user.id)}>Detalhes</button>
+                    <button onClick={() => this.props.detalhesPlaylist(user.id)}>➕</button>
                     {user.name}
-                    <button onClick={() => this.deletarPlaylist(user.id)}>🗑️</button>
+                    <button onClick={() => this.deletarPlaylist(user.id)}>Excluir</button>
                 </div>
             </div>
         })
 
-
         return (
-            <div>
+            <ContainerDiv>
                 <ContainerLista>
-                    <ContainerPlaylist>
-                        <h2>Veja suas Playlists 🎧</h2>
-                        {listaDePlaylists}
-                        <button onClick={this.props.irParaHome}>Voltar</button>
-                    </ContainerPlaylist >
+                    <h1>Labefy ▶️</h1>
+                    <h2>Veja suas playlists 🎵</h2>
+                    {listaDePlaylists}
+                    <button onClick={this.props.irParaHome}>Voltar</button>
                 </ContainerLista>
-            </div>
+            </ContainerDiv>
         )
     }
 }
