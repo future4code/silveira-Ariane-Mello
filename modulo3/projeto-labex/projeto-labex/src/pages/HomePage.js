@@ -3,17 +3,56 @@
 import React from 'react'
 import img from './img/home.gif'
 import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
 
+const GlobalStyles = styled.div`
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;  
+    color: rgb(217, 176, 255);
+`
 const ContainerHome = styled.div`
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    margin-right: 25vh;
+    justify-content: space-around;
+    align-items: center;
+`
+
+const DivEsquerda = styled.div`
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    text-align: center;
+    min-width: 960px;
+    img{
+        width: 500px;
+    }
+`
+const DivDireita = styled.div`
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    text-align: center;
 `
 
 const ImgHome = styled.div`
 img{
-    width: 50vh;
+    width: 75vh;
+    border-radius: 25px;
+    opacity: 0.8;
 }
 `
 
 const Botao = styled.div`
+display: flex;
+flex-direction: column;
+height: 15vh;
 button {
  --glow-color: rgb(217, 176, 255);
  --glow-spread-color: rgba(191, 123, 255, 0.781);
@@ -65,16 +104,41 @@ button:active {
 `
 
 export default function HomePage() {
+
+    const navigate = useNavigate()
+
+    const goTripPage = () => {
+        navigate("/trips/list")
+    }
+
+    const goLoginPage = () => {
+        navigate("/login")
+    }
+
     return (
-        <ContainerHome>
-            <ImgHome>
-                <img src={img} alt='Imagem foguete decolando'></img>
-                <h1>Um viajante interestelar.</h1>
-            </ImgHome>
-            <Botao>
-                <button>Viagens 🚀</button>
-                <button>Login 👩‍🚀</button>
-            </Botao>
-        </ContainerHome>
+        <GlobalStyles>
+            <ContainerHome>
+                <DivEsquerda>
+                    <ImgHome>
+                        <img src={img} alt='Imagem astronauta vendo universo'></img>
+                        <h1>Um viajante interestelar.</h1>
+                    </ImgHome>
+                </DivEsquerda>
+                <DivDireita>
+                    <Botao>
+                        <button
+                            onClick={goTripPage}>
+                            Viagens 🚀
+                        </button>
+                    </Botao>
+                    <Botao>
+                        <button
+                        onClick={goLoginPage}>
+                            Login 👩‍🚀
+                        </button>
+                    </Botao>
+                </DivDireita>
+            </ContainerHome>
+        </GlobalStyles>
     )
 }
