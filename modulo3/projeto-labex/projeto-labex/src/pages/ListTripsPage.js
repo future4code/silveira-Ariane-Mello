@@ -1,8 +1,20 @@
 //Para vermos todas as viagens
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+
+const GlobalStyles = styled.div`
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    display: flex;
+    height: 100%;
+    flex-direction: column;  
+    color: rgb(217, 176, 255);
+`
 
 const Header = styled.div`
 display: flex;
@@ -17,24 +29,21 @@ justify-content: space-around;
 margin-bottom: -10px;
 `
 
-const DivLista = styled.div`
-display: flex;
-justify-content: center;
-margin-top: 25px;
-`
-
 const Lista = styled.div`
 border: 5px double rgb(217, 176, 255);
 width: 30vw;
+height: auto;
 display: flex;
-justify-content: center;
 color: rgb(217, 176, 255);
+list-style-type: none;
+flex-direction: column;
 `
 
 const Botaozinho = styled.div`
 display: flex;
 justify-content: center;
 margin-bottom: 10px;
+align-items: center;
 button{
 margin-right: 25px;
 margin-left: 25px;
@@ -51,7 +60,6 @@ button {
   align-items: center;
   justify-content: center;
   height: 7vh;
-  width: 5vh;
  --glow-color: rgb(217, 176, 255);
  --glow-spread-color: rgba(191, 123, 255, 0.781);
  --enhanced-glow-color: rgb(231, 206, 255);
@@ -108,16 +116,40 @@ export default function ListTripsPage() {
     navigate("/")
   }
 
-  const goReturn = () => {
-    navigate(-1)
-  }
-
   const goApplicationFormPage = () => {
     navigate("/trips/application")
   }
 
+  const [trips, setTrips] = useState([]);
+
+  const getTrips = () => {
+    axios.get("https://us-central1-labenu-apis.cloudfunctions.net/labeX/ariane-silveira/trips")
+      .then((response) => {
+        setTrips(response.data.trips)
+      })
+      .catch((err) => {
+        alert("Ocorreu um erro, por favor tente novamente")
+      })
+  }
+
+  useEffect(() => {
+    getTrips()
+  }, [])
+
+  const listTrips = trips.map((list) => {
+    return (
+      <div key={trips.id}>
+        <p>Nome: {list.name}</p>
+        <p>Descrição: {list.description}</p>
+        <p>Planeta: {list.planet}</p>
+        <p>Duração: {list.durationInDays}</p>
+        <p>Data: {list.date}</p>
+      </div>
+    )
+  })
+
   return (
-    <div>
+    <GlobalStyles>
       <Header>
         <Button>
           <button onClick={goHomePage}>
@@ -125,26 +157,19 @@ export default function ListTripsPage() {
           </button>
         </Button>
       </Header>
-        <Titulo>
-          <h1>Confira as viagens disponíveis aqui</h1>
-        </Titulo>
-        <Button>
-          <Botaozinho>
-          <button>Criar viagem</button>
-          <button>Logout</button>
-          </Botaozinho>
-        </Button>
-        <DivLista>
-        <Lista>
-          <li>
-          <h1>TESTE</h1>
-          <h1>TESTE</h1>
-          <h1>TESTE</h1>
-          <h1>TESTE</h1>
-          <h1>TESTE</h1>
-          </li>
-        </Lista>
-        </DivLista>
-    </div>
+      <Titulo>
+        <h1>Confira as viagens disponíveis aqui</h1>
+      </Titulo>
+      <Button>
+        <Botaozinho>
+          <button onClick={goApplicationFormPage}>Inscreva-se</button>
+          <Lista>
+            <li>
+              {listTrips}
+            </li>
+          </Lista>
+        </Botaozinho>
+      </Button>
+    </GlobalStyles>
   )
 }

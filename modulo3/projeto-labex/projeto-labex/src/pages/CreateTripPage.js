@@ -4,11 +4,38 @@ import React from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 
+const GlobalStyles = styled.div`
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    display: flex;
+    height: 100vh;
+    flex-direction: column;  
+    color: rgb(217, 176, 255);
+`
+
 const Header = styled.div`
 display: flex;
-height: 100vh;
 margin-right: 25vh;
 justify-content: flex-end;
+`
+
+const Titulo = styled.div`
+color: rgb(217, 176, 255);
+display: flex;
+justify-content: space-around;
+margin-bottom: -10px;
+`
+
+const Botaozinho = styled.div`
+display: flex;
+justify-content: center;
+margin-bottom: 10px;
+button{
+margin-right: 25px;
+margin-left: 25px;
+}
 `
 
 const Button = styled.div`
@@ -20,8 +47,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 5vh;
-  width: 5vh;
+  height: 7vh;
  --glow-color: rgb(217, 176, 255);
  --glow-spread-color: rgba(191, 123, 255, 0.781);
  --enhanced-glow-color: rgb(231, 206, 255);
@@ -79,6 +105,7 @@ export default function CreateTripPage() {
   }
 
   return (
+    <GlobalStyles>
     <div>
       <Header>
         <Button>
@@ -87,17 +114,19 @@ export default function CreateTripPage() {
           </button>
         </Button>
       </Header>
+      <Titulo>
+        <h1>Sala de comando</h1>
+      </Titulo>
       <div>
-        <div>
-          <h1>Cadastre suas viagens</h1>
-        </div>
         <div>
           <input
             placeholder="Nome"
           />
-          <option
-          />
-          <date
+          <select>
+            <option>Escolha um planeta</option>
+          </select>
+          <input
+            placeholder="Data"
           />
           <input
             placeholder="Descrição"
@@ -107,6 +136,12 @@ export default function CreateTripPage() {
           />
         </div>
       </div>
+      <Button>
+        <Botaozinho>
+          <button>Criar</button>
+        </Botaozinho>
+      </Button>
     </div>
+    </GlobalStyles>
   )
 }

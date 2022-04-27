@@ -10,8 +10,8 @@ const GlobalStyles = styled.div`
     margin: 0;
     box-sizing: border-box;
     text-decoration: none;
-    height: 100vh;
     display: flex;
+    height: 100vh;
     flex-direction: column;  
     color: rgb(217, 176, 255);
 `
