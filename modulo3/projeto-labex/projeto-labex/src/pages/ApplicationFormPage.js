@@ -1,9 +1,11 @@
 //Para o usuário se candidatar à viagens, página que vai ter o formulário de inscrição
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import useForm from '../Hooks/useForm'
+import { Countries } from '../Constants/Countries'
 
 const GlobalStyles = styled.div`
     padding: 0;
@@ -25,14 +27,25 @@ justify-content: flex-end;
 const Titulo = styled.div`
 color: rgb(217, 176, 255);
 display: flex;
-justify-content: space-around;
-margin-bottom: -10px;
+margin: 0 auto;
+`
+
+const CardForm = styled.div`
+border: 5px double rgb(217, 176, 255);
+width: 30vw;
+height: auto;
+display: flex;
+color: rgb(217, 176, 255);
+list-style-type: none;
+flex-direction: column;
+margin: 10px auto;
+text-align: center;
 `
 
 const Botaozinho = styled.div`
 display: flex;
 justify-content: center;
-margin-bottom: 10px;
+margin-bottom: 50px;
 button{
 margin-right: 25px;
 margin-left: 25px;
@@ -105,32 +118,65 @@ export default function ApplicationFormPage() {
     navigate("/")
   }
 
-  // const [trips, setTrips] = useState([])
+  const { form, onChange, cleanFields } = useForm({
+    name: "",
+    age: "",
+    applicationText: "",
+    profession: "",
+    country: "",
+    idViagem: "",
+  })
 
-  // const applyToTrip = () => {
-  //   const body = {
-  //     "name": "Astrodev",
-  //     "age": 20,
-  //     "applicationText": "Quero muuuuuuito ir!!!",
-  //     "profession": "Chefe",
-  //     "country": "Brasil"
-  //   }
-  //   axios.post("https://us-central1-labenu-apis.cloudfunctions.net/labeX/ariane-silveira/trips/:id/apply", body)
-  //   .then((response) => {
-  //     alert("Parabéns seu cadastro foi realizado com sucesso, boa sorte")
-  //   })
-  //   .catch((err) => {
-  //     alert("Ocorreu um erro, por favor tente novamente")
-  //   })
-  // }
+  const cadastrar = (event) => {
+    event.preventDefault()
+    applyToTrip()
+    cleanFields()
+  }
 
-  // useEffect(() => {
+  const [trips, setTrips] = useState([])
 
-  // })
+  const applyToTrip = (id) => {
+    const body = {
+      "name": form.name,
+      "age": form.age,
+      "applicationText": form.applicationText,
+      "profession": form.profession,
+      "country": form.country,
+    }
+    axios.post(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/ariane-silveira/trips/${id}/apply`, body)
+      .then((response) => {
+        alert("Parabéns seu cadastro foi realizado com sucesso, boa sorte")
+      })
+      .catch((err) => {
+        alert("Ocorreu um erro, por favor tente novamente")
+      })
+  }
+
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    axios.get("https://us-central1-labenu-apis.cloudfunctions.net/labeX/ariane-silveira/trips")
+      .then((response) => {
+        setTrips(response.data.trips)
+      })
+      .catch((err) => {
+        alert("Ocorreu um erro, por favor tente novamente")
+      })
+  }, [])
+
+  const getTrips = trips.map((list) => {
+    return (
+      <option key={list.id} value={list.id}>{list.name}</option>
+    )
+  })
+
+  const getCountries = Countries.map((list) => {
+    return (
+      <option key={list} value={list}>{list}</option>
+    )
+  })
 
   return (
     <GlobalStyles>
-    <div>
       <Header>
         <Button>
           <button onClick={goHomePage}>
@@ -141,34 +187,54 @@ export default function ApplicationFormPage() {
       <Titulo>
         <h1>Embarque nessa viagem</h1>
       </Titulo>
-      <div>
-        <div>
-          <select>
-            <option>Escolha uma viagem</option>
+      <CardForm>
+        <form onSubmit={cadastrar}>
+          <select
+            value={form.idViagem}
+            name={"idViagem"}
+            onChange={onChange}>
+            <option value="" disabled>Escolha sua viagem</option>
+            {getTrips}
           </select>
           <input
+            name={"name"}
+            value={form.name}
+            onChange={onChange}
             placeholder="Nome"
           />
           <input
+            name={"age"}
+            value={form.age}
+            onChange={onChange}
             placeholder="Idade"
           />
           <input
-            placeholder="Texto de candidatura"
+            name={"applicationText"}
+            value={form.applicationText}
+            onChange={onChange}
+            placeholder="Texto para candidatura"
           />
           <input
+            name={"profession"}
+            value={form.profession}
+            onChange={onChange}
             placeholder="Profissão"
           />
-          <select>
-            <option>Escolha um país</option>
+          <select
+            value={form.country}
+            name={"country"}
+            onChange={onChange}
+          >
+            <option value="" disabled>Escolha seu país</option>
+            {getCountries}
           </select>
-        </div>
-      </div>
-      <Button>
-        <Botaozinho>
-          <button>Enviar</button>
-        </Botaozinho>
-      </Button>
-    </div>
+          <Button>
+            <Botaozinho>
+              <button>Enviar</button>
+            </Botaozinho>
+          </Button>
+        </form>
+      </CardForm>
     </GlobalStyles>
   )
 }

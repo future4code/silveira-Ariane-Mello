@@ -25,8 +25,7 @@ justify-content: flex-end;
 const Titulo = styled.div`
 color: rgb(217, 176, 255);
 display: flex;
-justify-content: space-around;
-margin-bottom: -10px;
+margin: 0 auto;
 `
 
 const Lista = styled.div`
@@ -37,6 +36,8 @@ display: flex;
 color: rgb(217, 176, 255);
 list-style-type: none;
 flex-direction: column;
+margin: 10px auto;
+text-align: center;
 `
 
 const Botaozinho = styled.div`
@@ -44,6 +45,7 @@ display: flex;
 justify-content: center;
 margin-bottom: 10px;
 align-items: center;
+margin-bottom: 50px;
 button{
 margin-right: 25px;
 margin-left: 25px;
@@ -163,12 +165,12 @@ export default function ListTripsPage() {
       <Button>
         <Botaozinho>
           <button onClick={goApplicationFormPage}>Inscreva-se</button>
-          <Lista>
+        </Botaozinho>
+        <Lista>
             <li>
               {listTrips}
             </li>
           </Lista>
-        </Botaozinho>
       </Button>
     </GlobalStyles>
   )

@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import useProtectedPage from '../Hooks/useProtectedPage'
 
 const GlobalStyles = styled.div`
     padding: 0;
@@ -26,8 +27,7 @@ justify-content: flex-end;
 const Titulo = styled.div`
 color: rgb(217, 176, 255);
 display: flex;
-justify-content: space-around;
-margin-bottom: -10px;
+margin: 0 auto;
 `
 
 const Lista = styled.div`
@@ -35,15 +35,17 @@ border: 5px double rgb(217, 176, 255);
 width: 30vw;
 height: auto;
 display: flex;
-justify-content: center;
 color: rgb(217, 176, 255);
 list-style-type: none;
+flex-direction: column;
+margin: 0 auto;
+text-align: center;
 `
 
 const Botaozinho = styled.div`
 display: flex;
 justify-content: center;
-margin-bottom: 10px;
+margin-bottom: 50px;
 button{
 margin-right: 25px;
 margin-left: 25px;
@@ -108,19 +110,9 @@ button:active {
         inset 0 0 .5em .25em var(--glow-color);
 }
 `
-const useProtectedPage = () => {
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    const token = localStorage.getItem("token")
-
-    if (token === null) {
-      navigate.push("/login")
-    }
-  }, [])
-}
-
 export default function AdminHomePage() {
+  useProtectedPage()
+
   const navigate = useNavigate()
 
   const goHomePage = () => {
@@ -140,7 +132,6 @@ export default function AdminHomePage() {
   useProtectedPage()
 
   useEffect(() => {
-    const token = localStorage.getItem("token")
     axios.get("https://us-central1-labenu-apis.cloudfunctions.net/labeX/ariane-silveira/trips")
       .then((response) => {
         setTrips(response.data.trips)
@@ -152,7 +143,7 @@ export default function AdminHomePage() {
 
   const deleteViagem = (id) => {
     const token = localStorage.getItem("token")
-    axios.delete(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/:aluno/trips/${id}`,
+    axios.delete(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/ariane-silveira/trips/${id}`,
       {
         headers: {
           auth: token
@@ -163,7 +154,7 @@ export default function AdminHomePage() {
         alert("Viagem excluída com sucesso!")
       })
       .catch((err) => {
-        console.log(err)
+        alert("Ocorreu um erro, por favor tente novamente")
       })
   }
 
@@ -178,15 +169,14 @@ export default function AdminHomePage() {
 
   return (
     <GlobalStyles>
-    <div>
       <Header>
         <Button>
           <button onClick={goHomePage}>
             Home
           </button>
-          <button>
+          {/* <button>
             Logout
-          </button>
+          </button> */}
         </Button>
       </Header>
       <Titulo>
@@ -202,7 +192,6 @@ export default function AdminHomePage() {
           {tripsList}
         </li>
       </Lista>
-    </div>
     </GlobalStyles>
   )
 }

@@ -25,28 +25,24 @@ justify-content: flex-end;
 const Titulo = styled.div`
 color: rgb(217, 176, 255);
 display: flex;
-justify-content: space-around;
-margin-bottom: -10px;
+margin: 0 auto;
 `
 
-const DivLista = styled.div`
-display: flex;
-justify-content: center;
-margin-top: 25px;
-`
-
-const Lista = styled.div`
+const Card = styled.div`
 border: 5px double rgb(217, 176, 255);
 width: 30vw;
+height: auto;
 display: flex;
-justify-content: center;
 color: rgb(217, 176, 255);
+list-style-type: none;
+flex-direction: column;
+margin: 10px auto;
 `
 
 const Botaozinho = styled.div`
 display: flex;
 justify-content: center;
-margin-bottom: 10px;
+margin-bottom: 50px;
 button{
 margin-right: 25px;
 margin-left: 25px;
@@ -154,7 +150,6 @@ export default function LoginPage() {
 
   return (
     <GlobalStyles>
-    <div>
       <Header>
         <Button>
           <button onClick={goHomePage}>
@@ -165,7 +160,7 @@ export default function LoginPage() {
       <Titulo>
         <h1>Login</h1>
       </Titulo>
-      <div>
+      <Card>
         <input
           placeholder="E-mail"
           type="email"
@@ -178,13 +173,12 @@ export default function LoginPage() {
           value={password}
           onChange={onChangePassword}
         />
-      </div>
+      </Card>
       <Button>
         <Botaozinho>
           <button onClick={login}>Entrar</button>
         </Botaozinho>
       </Button>
-    </div>
     </GlobalStyles>
   )
 }
