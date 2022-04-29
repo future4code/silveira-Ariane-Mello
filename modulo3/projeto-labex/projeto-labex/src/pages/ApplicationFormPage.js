@@ -129,7 +129,7 @@ export default function ApplicationFormPage() {
 
   const cadastrar = (event) => {
     event.preventDefault()
-    applyToTrip()
+    applyToTrip(form.idViagem)
     cleanFields()
   }
 
@@ -145,9 +145,11 @@ export default function ApplicationFormPage() {
     }
     axios.post(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/ariane-silveira/trips/${id}/apply`, body)
       .then((response) => {
-        alert("Parabéns seu cadastro foi realizado com sucesso, boa sorte")
+        console.log(response.data)
+        alert("Parabéns seu cadastro foi realizado com sucesso, boa sorte!")
       })
       .catch((err) => {
+        console.log(err.response)
         alert("Ocorreu um erro, por favor tente novamente")
       })
   }

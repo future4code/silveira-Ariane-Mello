@@ -124,7 +124,7 @@ export default function AdminHomePage() {
   }
 
   const goTripDetailsPage = (id) => {
-    navigate(`/tripdetailspage/${id}`)
+    navigate(`/admin/trips/${id}`) 
   }
 
   const [trips, setTrips] = useState([])
