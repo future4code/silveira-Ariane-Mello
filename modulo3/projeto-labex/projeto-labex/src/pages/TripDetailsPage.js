@@ -13,7 +13,7 @@ const GlobalStyles = styled.div`
     box-sizing: border-box;
     text-decoration: none;
     display: flex;
-    height: 100vh;
+    height: auto;
     flex-direction: column;  
     color: rgb(217, 176, 255);
 `
@@ -166,7 +166,7 @@ export default function TripDetailsPage() {
       })
   }
 
-  const approvedCandidates = trip.approved.map((candidate) => {
+  const approvedCandidates = trip.approved && trip.approved.map((candidate) => {
     return (
       <div key={candidate.id}> {candidate.name} </div>
     )
