@@ -1,13 +1,16 @@
-import React from 'react'
-import { goToSignUp } from '../../routes/coordinator'
-import { useNavigate } from 'react-router-dom'
-import { ScreenContainer, LogoImage} from './styled'
-import logo from '../../assets/img/logo.png'
-import LoginForm from './LoginForm'
+import React from 'react';
+import { goToSignUp } from '../../routes/coordinator';
+import { useNavigate } from 'react-router-dom';
+import { ScreenContainer, LogoImage } from './styled';
+import logo from '../../assets/img/logo.png';
+import LoginForm from './LoginForm';
+import useUnprotectedPage from '../../hooks/useProtectedPage';
 
 const LoginPage = () => {
 
-    const navigate = useNavigate()
+    useUnprotectedPage();
+
+    const navigate = useNavigate();
 
     return (
         <ScreenContainer>
@@ -21,4 +24,4 @@ const LoginPage = () => {
     )
 }
 
-export default LoginPage
+export default LoginPage;

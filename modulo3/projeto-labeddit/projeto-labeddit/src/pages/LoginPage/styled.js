@@ -18,7 +18,10 @@ export const Form =  styled.form`
 display: flex;
 flex-direction: column;
 align-items: center;
+gap: 5px;
 button{
-    width: 30%;
+    width: 50%;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 `

@@ -8,11 +8,11 @@ const LoginForm = () => {
 
     const navigate = useNavigate();
 
-    const { form, onChange, clear } = useForm({ email: "", password: "" });
+    const { form, onChange, clear } = useForm({ email: '', password: '' });
 
     const onSubmitForm = (event) => {
-        event.preventDefault();
-        login(form, clear, navigate);
+        event.preventDefault()
+        login(form, clear, navigate)
     };
 
     return (

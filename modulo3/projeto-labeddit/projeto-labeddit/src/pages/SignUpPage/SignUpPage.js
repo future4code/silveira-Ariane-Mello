@@ -1,22 +1,53 @@
-import { Checkbox } from '@mui/material'
-import React from 'react'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import useForm from '../../hooks/useForm';
+import { signUp } from '../../services/users';
+import { ScreenContainer, Form} from './styled';
 
 const SignUpPage = () => {
+
+    const navigate = useNavigate();
+
+    const {form, onChange, clear} = useForm({ username: '', email: '', password: '' })
+
+    const onSubmitForm = (event) => {
+        event.preventDefault()
+        signUp(form, clear, navigate)
+    }
+
     return (
-        <div>
+        <ScreenContainer>
             <h1>Sign Up</h1>
-            <input
-            placeholder="Nome de usuário"
-            />
-            <input
-            placeholder="E-mail"
-            />
-            <input
-            placeholder="Senha"
-            />
-            <button>Cadastrar</button>
-        </div>
+            <div>
+            <Form onSubmit={onSubmitForm}>
+                <input
+                    value={form.username}
+                    name={'username'}
+                    onChange={onChange}
+                    placeholder="Nome de usuário"
+                    required
+                />
+                <input
+                    value={form.email}
+                    name={'email'}
+                    type={"email"}
+                    onChange={onChange}
+                    placeholder="E-mail"
+                    required
+                />
+                <input
+                    value={form.password}    
+                    name={'password'}
+                    type={"password"}
+                    onChange={onChange}
+                    placeholder="Senha"
+                    required
+                />
+                <button>Cadastrar</button>
+                </Form>
+                </div>
+        </ScreenContainer>
     )
 }
 
-export default SignUpPage
+export default SignUpPage;

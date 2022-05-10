@@ -1,19 +1,15 @@
-import { useNavigate } from 'react-router-dom';
-
-const navigate = useNavigate;
-
 export const goToLogin = (navigate) => {
-    navigate("/");
+    navigate("/")
 };
 
 export const goToSignUp = (navigate) => {
-    navigate("/signup");
+    navigate("/signup")
 };
 
 export const goToFeed = (navigate) => {
-    navigate("/feed");
+    navigate("/feed")
 };
 
 export const goToPost = (navigate) => {
-    navigate("/post");
+    navigate("/post")
 };
