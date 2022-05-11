@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import useUnprotectedPage from '../../hooks/useProtectedPage';
+import React from 'react';
+import useProtectedPage from '../../hooks/useProtectedPage';
 import Header from '../../components/Header/Header';
-import { post } from '../../services/posts';
 import { createPost } from '../../services/posts';
 import useForm from '../../hooks/useForm';
-import { ScreenContainer, ContainerPost } from './styled';
-
+import { ScreenContainer, ContainerPost, Form } from './styled';
+import { goToPost } from '../../routes/coordinator';
+import { useNavigate } from 'react-router-dom';
+import useRequestData from '../../hooks/useRequestData';
+import { baseURL } from '../../constants/urls';
 
 const FeedPage = () => {
 
-    useEffect(() => {
-        post(setPosts)
-    }, []);
+    const navigate = useNavigate();
 
-    useUnprotectedPage();
+    useProtectedPage();
 
-    const [posts, setPosts] = useState();
+    const posts = useRequestData([], `${baseURL}/posts`)
 
     const { form, onChange, clear } = useForm({ title: '', body: '' });
 
@@ -26,9 +26,11 @@ const FeedPage = () => {
 
     const listPost = posts && posts.map((posts) => {
         return (
-            <ContainerPost key={posts.id}>
+            <ContainerPost onClick={() => goToPost(navigate, posts.id)} key={posts.id}>
+                <p>Enviado por: {posts.username}</p>
                 <p>{posts.title}</p>
-                <p>{posts.username}</p>
+                <p>{posts.voteSum}</p>
+                <p>{posts.userVote}</p>
             </ContainerPost>
         )
     });
@@ -38,22 +40,26 @@ const FeedPage = () => {
             <Header />
             <ScreenContainer>
                 <h1>Feed Page</h1>
-                <input
-                    placeholder="Título"
-                    name={"title"}
-                    onChange={onChange}
-                    required
-                />
-                <input
-                    placeholder="Escreva seu post..."
-                    name={"body"}
-                    onChange={onChange}
-                    required
-                />
-                <button>Postar</button>
+                <Form onSubmit={onSubmitForm}>
+                    <input
+                        placeholder="Título"
+                        name={"title"}
+                        value={form.title}
+                        onChange={onChange}
+                        required
+                    />
+                    <input
+                        placeholder="Escreva seu post..."
+                        name={"body"}
+                        value={form.body}
+                        onChange={onChange}
+                        required
+                    />
+                    <button>Postar</button>
+                </Form>
+                {listPost}
             </ScreenContainer>
-            {listPost}
-        </div >
+        </div>
     )
 };
 

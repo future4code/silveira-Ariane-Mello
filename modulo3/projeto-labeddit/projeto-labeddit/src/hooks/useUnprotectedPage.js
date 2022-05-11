@@ -4,15 +4,15 @@ import { goToFeed } from '../routes/coordinator';
 
 const useUnprotectedPage = () => {
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   useLayoutEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token")
 
     if (token) {
-      goToFeed(navigate);
+      goToFeed(navigate)
     }
-  }, [navigate]);
-};
+  }, [navigate])
+}
 
-export default useUnprotectedPage;
+export default useUnprotectedPage

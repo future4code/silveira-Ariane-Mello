@@ -19,6 +19,7 @@ export const signUp = (body, clear, navigate) => {
         .then((res) => {
             localStorage.setItem("token", res.data.token)
             clear()
+            alert("Parabéns, seu cadastro foi realizado com sucesso!")
             goToFeed(navigate)
         })
         .catch((err) => {

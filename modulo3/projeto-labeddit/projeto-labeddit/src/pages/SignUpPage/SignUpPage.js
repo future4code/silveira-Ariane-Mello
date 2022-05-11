@@ -3,8 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import useForm from '../../hooks/useForm';
 import { signUp } from '../../services/users';
 import { ScreenContainer, Form} from './styled';
+import useUnprotectedPage from '../../hooks/useProtectedPage';
 
 const SignUpPage = () => {
+
+    useUnprotectedPage();
 
     const navigate = useNavigate();
 
