@@ -10,7 +10,7 @@ const Header = () => {
     const logout = () => {
         localStorage.removeItem("token");
         goToLogin(navigate);
-    }
+    };
 
     return (
         <StyledHeader>
@@ -18,6 +18,6 @@ const Header = () => {
         </StyledHeader>
 
     )
-}
+};
 
 export default Header;

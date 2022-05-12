@@ -8,6 +8,7 @@ import { goToPost } from '../../routes/coordinator';
 import { useNavigate } from 'react-router-dom';
 import useRequestData from '../../hooks/useRequestData';
 import { baseURL } from '../../constants/urls';
+import axios from 'axios';
 
 const FeedPage = () => {
 
@@ -29,11 +30,60 @@ const FeedPage = () => {
             <ContainerPost onClick={() => goToPost(navigate, posts.id)} key={posts.id}>
                 <p>Enviado por: {posts.username}</p>
                 <p>{posts.title}</p>
-                <p>{posts.voteSum}</p>
-                <p>{posts.userVote}</p>
+                <button onClick={() => handleLike(posts.id, posts.userVote)}>Like</button>
+                <button onClick={() => handleNoLike(posts.id, posts.userVote)}>Dislike</button>
             </ContainerPost>
         )
     });
+
+    const handleVote = (postId, direction) => {
+        const headers = {
+            headers: {
+                Authorization: localStorage.getItem("token")
+            }
+        }
+        const body = {
+            direction: direction
+        }
+        if (direction === 1) {
+            axios.post(`${baseURL}/posts/${postId}/votes`, body, headers
+            ).then((res) => {
+                console.log(res)
+            }).catch((err) => {
+                console.log(err)
+            })
+        } else if (direction === -1) {
+            axios.put(`${baseURL}/posts/${postId}/votes`, body, headers
+            ).then((res) => {
+                console.log(res)
+            }).catch((err) => {
+                console.log(err)
+            })
+        } else {
+            axios.delete(`${baseURL}/posts/${postId}/votes`, headers
+            ).then((res) => {
+                console.log(res)
+            }).catch((err) => {
+                console.log(err)
+            })
+        }
+    }
+
+    const handleLike = (postId, userVote) => {
+        if (userVote === 1) {
+            handleVote(postId)
+        } else {
+            handleVote(postId, 1)
+        }
+    }
+
+    const handleNoLike = (postId, userVote) => {
+        if (userVote === -1) {
+            handleVote(postId)
+        } else {
+            handleVote(postId, -1)
+        }
+    }
 
     return (
         <div>

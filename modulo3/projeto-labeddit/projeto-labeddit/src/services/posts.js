@@ -6,34 +6,25 @@ const headers = {
         { authorization: localStorage.getItem("token") }
 }
 
-// export const post = (setPosts) => {
-//     axios.get(`${baseURL}/posts`, headers)
-//         .then((res) => {
-//             setPosts(res.data)
-//         })
-//         .catch((err) => {
-//             alert("Ocorreu um erro por favor, tente novamente.")
-//         })
-// }
-
 export const createPost = (body, clear) => {
     axios.post(`${baseURL}/posts`, body, headers)
         .then((res) => {
+            alert("Seu post foi criado com sucesso!")
             clear()
         })
         .catch((err) => {
-            alert("Ocorreu um erro por favor, tente novamente.")
+            alert("Ops, ocorreu um erro: ", err.response)
         })
 }
 
 export const createComment = (body, id, clear) => {
     axios.post(`${baseURL}/posts/${id}/comments`, body, headers)
         .then((res) => {
-            console.log(res.data.message)
+            alert("Seu comentário foi adicionado com sucesso!")
             clear()
         })
         .catch((err) => {
-            console.log(err.response)
-            alert("Ocorreu um erro por favor, tente novamente.")
+            alert("Ops, ocorreu um erro: ", err.response)
         })
 }
+

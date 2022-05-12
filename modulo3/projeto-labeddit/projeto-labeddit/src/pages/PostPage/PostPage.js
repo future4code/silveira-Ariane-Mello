@@ -1,50 +1,125 @@
-import React, { useState } from 'react';
+import React from 'react';
 import useProtectedPage from '../../hooks/useProtectedPage';
 import Header from '../../components/Header/Header'
 import useForm from '../../hooks/useForm';
-import { ScreenContainer, ContainerPost, Form } from '../FeedPage/styled';
+import { ScreenContainer, Form, ContainerPost } from '../FeedPage/styled';
 import { createComment } from '../../services/posts';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import useRequestData from '../../hooks/useRequestData';
+import { baseURL } from '../../constants/urls';
+import { goToFeed } from '../../routes/coordinator';
+import axios from 'axios';
 
 const PostPage = () => {
 
-    const paramns = useParams();
+    const navigate = useNavigate();
 
     useProtectedPage();
 
-    const [posts, setPosts] = useState();
+    const params = useParams();
 
-    const { form, onChange, clear } = useForm({});
+    const posts = useRequestData([], `${baseURL}/posts`);
+
+    const detail = useRequestData([], `${baseURL}/posts/${params.id}/comments`);
+
+    const { form, onChange, clear } = useForm({ body: '' });
 
     const onSubmitForm = (event) => {
         event.preventDefault()
-        createComment(form, paramns.id, clear)
+        createComment(form, params.id, clear)
     };
 
-    const listPost = posts && posts.map((posts) => {
+    const listComment = detail && detail.map((comment) => {
         return (
-            <div>
-                <p>Enviado por: {posts.username}</p>
-            </div>
+            <ContainerPost key={comment.id}>
+                <p>Enviado por: {comment.username}</p>
+                <p>{comment.body}</p>
+            </ContainerPost>
         )
     });
+
+    const listPost = posts && posts.map((posts) => {
+        if (posts.id === params.id) {
+            return (
+                <ContainerPost key={posts.id}>
+                    <p>Enviado por: {posts.username}</p>
+                    <p>{posts.title}</p>
+                    <button onClick={() => handleLike(posts.id, posts.userVote)}>Like</button>
+                    <button onClick={() => handleNoLike(posts.id, posts.userVote)}>Dislike</button>
+                </ContainerPost>
+            )
+        }
+    });
+
+    const handleVote = (postId, direction) => {
+        const headers = {
+            headers: {
+                Authorization: localStorage.getItem("token")
+            }
+        }
+        const body = {
+            direction: direction
+        }
+        if (direction === 1) {
+            axios.post(`${baseURL}/comments/${postId}/votes`, body, headers
+            ).then((res) => {
+                console.log(res)
+            }).catch((err) => {
+                console.log(err)
+            })
+        } else if (direction === -1) {
+            axios.put(`${baseURL}/comments/${postId}/votes`, body, headers
+            ).then((res) => {
+                console.log(res)
+            }).catch((err) => {
+                console.log(err)
+            })
+        } else {
+            axios.delete(`${baseURL}/comments/${postId}/votes`, headers
+            ).then((res) => {
+                console.log(res)
+            }).catch((err) => {
+                console.log(err)
+            })
+        }
+    }
+
+    const handleLike = (postId, userVote) => {
+        if (userVote === 1) {
+            handleVote(postId)
+        } else {
+            handleVote(postId, 1)
+        }
+    }
+
+    const handleNoLike = (postId, userVote) => {
+        if (userVote === -1) {
+            handleVote(postId)
+        } else {
+            handleVote(postId, -1)
+        }
+    }
+
 
     return (
         <div>
             <Header />
             <ScreenContainer>
                 <h1>Post Page</h1>
-                <Form>
+                {listPost}
+                <Form onSubmit={onSubmitForm}>
                     <input
                         placeholder="Adicionar comentário"
-                        name={"comment"}
+                        name={"body"}
                         onChange={onChange}
+                        value={form.body}
                         required
                     />
-                    <button>Responder</button>
+                    <button>Comentar</button>
                 </Form>
+                {listComment}
+                <button onClick={() => goToFeed(navigate)}>Voltar</button>
             </ScreenContainer>
-            {listPost}
         </div>
     )
 };

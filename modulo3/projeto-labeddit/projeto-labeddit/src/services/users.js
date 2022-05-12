@@ -10,7 +10,7 @@ export const login = (body, clear, navigate) => {
             goToFeed(navigate)
         })
         .catch((err) => {
-            alert("Erro de login por favor, tente novamente.")
+            alert("Ops, ocorreu um erro: ", err.response)
         })
 }
 
@@ -19,10 +19,10 @@ export const signUp = (body, clear, navigate) => {
         .then((res) => {
             localStorage.setItem("token", res.data.token)
             clear()
-            alert("Parabéns, seu cadastro foi realizado com sucesso!")
+            alert("Seu cadastro foi realizado com sucesso!")
             goToFeed(navigate)
         })
         .catch((err) => {
-            alert("Erro de cadastro por favor, tente novamente.")
+            alert("Ops, ocorreu um erro: ", err.response)
         })
 }
