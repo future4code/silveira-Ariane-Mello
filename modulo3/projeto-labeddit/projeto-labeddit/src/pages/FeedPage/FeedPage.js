@@ -3,12 +3,17 @@ import useProtectedPage from '../../hooks/useProtectedPage';
 import Header from '../../components/Header/Header';
 import { createPost } from '../../services/posts';
 import useForm from '../../hooks/useForm';
-import { ScreenContainer, ContainerPost, Form } from './styled';
+import { ScreenContainer, ContainerPost, Form, ButtonLike } from './styled';
 import { goToPost } from '../../routes/coordinator';
 import { useNavigate } from 'react-router-dom';
 import useRequestData from '../../hooks/useRequestData';
 import { baseURL } from '../../constants/urls';
 import axios from 'axios';
+import downvoteblack from '../../assets/img/downvoteblack.png';
+import downvotered from '../../assets/img/downvotered.png';
+import upvotegreen from '../../assets/img/upvotegreen.png';
+import upvoteblack from '../../assets/img/upvoteblack.png';
+import comments from '../../assets/img/comments.png';
 
 const FeedPage = () => {
 
@@ -16,7 +21,7 @@ const FeedPage = () => {
 
     useProtectedPage();
 
-    const posts = useRequestData([], `${baseURL}/posts`)
+    const posts = useRequestData([], `${baseURL}/posts`);
 
     const { form, onChange, clear } = useForm({ title: '', body: '' });
 
@@ -27,11 +32,15 @@ const FeedPage = () => {
 
     const listPost = posts && posts.map((posts) => {
         return (
-            <ContainerPost onClick={() => goToPost(navigate, posts.id)} key={posts.id}>
+            <ContainerPost>
                 <p>Enviado por: {posts.username}</p>
                 <p>{posts.title}</p>
-                <button onClick={() => handleLike(posts.id, posts.userVote)}>Like</button>
-                <button onClick={() => handleNoLike(posts.id, posts.userVote)}>Dislike</button>
+                <ButtonLike>
+                    <img src={posts.userVote === 1 ? upvotegreen : upvoteblack} onClick={() => handleLike(posts.id, posts.userVote)} />
+                    <p>{posts.voteSum}</p>
+                    <img src={posts.downVote === -1 ? downvotered : downvoteblack} onClick={() => handleNoLike(posts.id, posts.userVote)} />
+                    <img src={comments} onClick={() => goToPost(navigate, posts.id)} key={posts.id} /> {posts.commentCount}
+                </ButtonLike>
             </ContainerPost>
         )
     });
@@ -41,10 +50,12 @@ const FeedPage = () => {
             headers: {
                 Authorization: localStorage.getItem("token")
             }
-        }
+        };
+
         const body = {
             direction: direction
-        }
+        };
+
         if (direction === 1) {
             axios.post(`${baseURL}/posts/${postId}/votes`, body, headers
             ).then((res) => {
@@ -67,7 +78,7 @@ const FeedPage = () => {
                 console.log(err)
             })
         }
-    }
+    };
 
     const handleLike = (postId, userVote) => {
         if (userVote === 1) {
@@ -75,7 +86,7 @@ const FeedPage = () => {
         } else {
             handleVote(postId, 1)
         }
-    }
+    };
 
     const handleNoLike = (postId, userVote) => {
         if (userVote === -1) {
@@ -83,13 +94,12 @@ const FeedPage = () => {
         } else {
             handleVote(postId, -1)
         }
-    }
+    };
 
     return (
         <div>
             <Header />
             <ScreenContainer>
-                <h1>Feed Page</h1>
                 <Form onSubmit={onSubmitForm}>
                     <input
                         placeholder="Título"
@@ -98,14 +108,14 @@ const FeedPage = () => {
                         onChange={onChange}
                         required
                     />
-                    <input
+                    <textarea
                         placeholder="Escreva seu post..."
                         name={"body"}
                         value={form.body}
                         onChange={onChange}
                         required
                     />
-                    <button>Postar</button>
+                    <button><p>Postar</p></button>
                 </Form>
                 {listPost}
             </ScreenContainer>

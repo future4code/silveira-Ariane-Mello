@@ -10,9 +10,9 @@ const useProtectedPage = () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      goToLogin(navigate);
+      goToLogin(navigate)
     }
-  }, [navigate]);
+  }, [navigate])
 };
 
 export default useProtectedPage;

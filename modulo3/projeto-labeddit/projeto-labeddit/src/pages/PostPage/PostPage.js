@@ -2,13 +2,18 @@ import React from 'react';
 import useProtectedPage from '../../hooks/useProtectedPage';
 import Header from '../../components/Header/Header'
 import useForm from '../../hooks/useForm';
-import { ScreenContainer, Form, ContainerPost } from '../FeedPage/styled';
+import { ButtonLike, ScreenContainer, Form, ContainerPost } from '../FeedPage/styled';
 import { createComment } from '../../services/posts';
 import { useParams, useNavigate } from 'react-router-dom';
 import useRequestData from '../../hooks/useRequestData';
 import { baseURL } from '../../constants/urls';
-import { goToFeed } from '../../routes/coordinator';
+import { goToFeed, goToPost } from '../../routes/coordinator';
 import axios from 'axios';
+import downvoteblack from '../../assets/img/downvoteblack.png';
+import downvotered from '../../assets/img/downvotered.png';
+import upvotegreen from '../../assets/img/upvotegreen.png';
+import upvoteblack from '../../assets/img/upvoteblack.png';
+import comments from '../../assets/img/comments.png';
 
 const PostPage = () => {
 
@@ -44,8 +49,12 @@ const PostPage = () => {
                 <ContainerPost key={posts.id}>
                     <p>Enviado por: {posts.username}</p>
                     <p>{posts.title}</p>
-                    <button onClick={() => handleLike(posts.id, posts.userVote)}>Like</button>
-                    <button onClick={() => handleNoLike(posts.id, posts.userVote)}>Dislike</button>
+                    <ButtonLike>
+                        <img src={posts.userVote === 1 ? upvotegreen : upvoteblack} onClick={() => handleLike(posts.id, posts.userVote)} />
+                        <p>{posts.voteSum}</p>
+                        <img src={posts.downVote === -1 ? downvotered : downvoteblack} onClick={() => handleNoLike(posts.id, posts.userVote)} />
+                        <img src={comments} onClick={() => goToPost(navigate, posts.id)} key={posts.id} /> {posts.commentCount}
+                    </ButtonLike>
                 </ContainerPost>
             )
         }
@@ -56,10 +65,12 @@ const PostPage = () => {
             headers: {
                 Authorization: localStorage.getItem("token")
             }
-        }
+        };
+
         const body = {
             direction: direction
-        }
+        };
+
         if (direction === 1) {
             axios.post(`${baseURL}/comments/${postId}/votes`, body, headers
             ).then((res) => {
@@ -82,7 +93,7 @@ const PostPage = () => {
                 console.log(err)
             })
         }
-    }
+    };
 
     const handleLike = (postId, userVote) => {
         if (userVote === 1) {
@@ -90,7 +101,7 @@ const PostPage = () => {
         } else {
             handleVote(postId, 1)
         }
-    }
+    };
 
     const handleNoLike = (postId, userVote) => {
         if (userVote === -1) {
@@ -98,14 +109,13 @@ const PostPage = () => {
         } else {
             handleVote(postId, -1)
         }
-    }
-
+    };
 
     return (
         <div>
             <Header />
+            <h1></h1>
             <ScreenContainer>
-                <h1>Post Page</h1>
                 {listPost}
                 <Form onSubmit={onSubmitForm}>
                     <input
@@ -115,10 +125,10 @@ const PostPage = () => {
                         value={form.body}
                         required
                     />
-                    <button>Comentar</button>
+                    <button><p>Responder</p></button>
+                    <button onClick={() => goToFeed(navigate)}><p>Voltar</p></button>
                 </Form>
                 {listComment}
-                <button onClick={() => goToFeed(navigate)}>Voltar</button>
             </ScreenContainer>
         </div>
     )

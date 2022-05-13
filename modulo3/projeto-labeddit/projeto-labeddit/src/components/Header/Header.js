@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { goToLogin } from '../../routes/coordinator';
 import { StyledHeader } from './styled';
+import logo from '../../assets/img/logo.png';
 
 const Header = () => {
 
@@ -14,7 +15,8 @@ const Header = () => {
 
     return (
         <StyledHeader>
-            <button onClick={logout}>Logout</button>
+            <img src={logo} />
+            <a onClick={logout}>Logout</a>
         </StyledHeader>
 
     )
