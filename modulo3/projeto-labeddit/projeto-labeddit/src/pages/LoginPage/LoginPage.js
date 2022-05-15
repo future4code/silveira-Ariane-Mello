@@ -10,7 +10,7 @@ const LoginPage = () => {
 
     return (
         <ScreenContainer>
-            <LogoImage src={logo} />
+            <LogoImage src={logo} alt="Logo LabEddit" />
             <h1>LabEddit</h1>
             <div>
                 <LoginForm />

@@ -15,7 +15,7 @@ const Header = () => {
 
     return (
         <StyledHeader>
-            <img src={logo} />
+            <img src={logo} alt="Logo LabEddit"/>
             <a onClick={logout}>Logout</a>
         </StyledHeader>
 

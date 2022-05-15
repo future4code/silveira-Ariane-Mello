@@ -46,16 +46,25 @@ border-radius: 12px;
 flex: none;
 order: 0;
 flex-grow: 0;
+p{
+font-size: 10px;
+}
+h3{
+    font-weight: normal;
+}
 img{   
 margin: 3px;    
-width: 4vh;
+height: 15px;
 }
-
 `
 
 export const ButtonLike = styled.div`
 display: flex;
 flex-direction: row;
+p{
+font-size: 10px;    
+display: flex;
+}
 `
 
 export const Form =  styled.form`

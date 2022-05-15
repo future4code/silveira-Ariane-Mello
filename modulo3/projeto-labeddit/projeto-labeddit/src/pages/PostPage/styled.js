@@ -29,16 +29,21 @@ flex-direction: column;
 align-items: flex-start;
 padding: 9px 10px;
 width: 300px;
-height: 150px;
 background: #FBFBFB;
 border: 1px solid #E0E0E0;
 border-radius: 12px;
 flex: none;
 order: 0;
 flex-grow: 0;
+p{
+font-size: 10px;
+}
+h3{
+    font-weight: normal;
+}
 img{   
 margin: 3px;    
-width: 4vh;
+height: 15px;
 }
 `
 

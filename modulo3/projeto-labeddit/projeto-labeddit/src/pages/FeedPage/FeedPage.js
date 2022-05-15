@@ -34,12 +34,12 @@ const FeedPage = () => {
         return (
             <ContainerPost>
                 <p>Enviado por: {posts.username}</p>
-                <p>{posts.title}</p>
+                <h3>{posts.title}</h3>
                 <ButtonLike>
-                    <img src={posts.userVote === 1 ? upvotegreen : upvoteblack} onClick={() => handleLike(posts.id, posts.userVote)} />
+                    <img src={posts.userVote === 1 ? upvotegreen : upvoteblack} onClick={() => handleLike(posts.id, posts.userVote)} alt="Ícone seta curtir" />
                     <p>{posts.voteSum}</p>
-                    <img src={posts.downVote === -1 ? downvotered : downvoteblack} onClick={() => handleNoLike(posts.id, posts.userVote)} />
-                    <img src={comments} onClick={() => goToPost(navigate, posts.id)} key={posts.id} /> {posts.commentCount}
+                    <img src={posts.downVote === -1 ? downvotered : downvoteblack} onClick={() => handleNoLike(posts.id, posts.userVote)} alt="Ícone seta descurtir" />
+                    <img src={comments} onClick={() => goToPost(navigate, posts.id)} key={posts.id} alt="Ícone comentário" /> <p>{posts.commentCount}</p>
                 </ButtonLike>
             </ContainerPost>
         )
