@@ -2,14 +2,14 @@ import React from 'react';
 import styled from 'styled-components'
 
 const AppContainer = styled.div`
-  border: 5px outset pink;
+  border: 5px outset #6483bd;
   height: 100vh;
   box-sizing: border-box;
   width: 100vh;
   margin: auto;
   display: flex;
   flex-direction: column;
-  background-color: #EEE6DD;
+  background-color: #6483bd;
 `
 
 const MensagemContainer = styled.div`
