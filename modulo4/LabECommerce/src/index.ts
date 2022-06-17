@@ -4,6 +4,8 @@ import { AddressInfo } from "net";
 import createUser from './endpoint/createUser';
 import getAllUser from './endpoint/getAllUser';
 import registerProduct from './endpoint/registerProduct';
+import getAllProduct from './endpoint/getAllProduct';
+import registerPurchases from './endpoint/registerPurchases';
 
 const app: Express = express();
 
@@ -15,6 +17,10 @@ app.post('/user', createUser);
 app.get('/user', getAllUser);
 
 app.post('/products', registerProduct);
+
+app.get('/products', getAllProduct);
+
+app.post('/purchases', registerPurchases);
 
 const server = app.listen(process.env.PORT || 3003, () => {
     if (server) {
