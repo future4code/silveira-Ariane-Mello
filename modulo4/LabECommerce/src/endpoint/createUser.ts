@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import queryCreateUser from "../query/queryCreateUser";
 
-
 export default async function createUser(req: Request, res: Response): Promise<void> {
     const { id, name, email, password } = req.body
     try {
