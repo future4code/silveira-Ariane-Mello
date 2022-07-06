@@ -18,7 +18,7 @@ export class userDatabase extends baseDatabase {
         try {
             const result = await baseDatabase.connection('labook_user')
                 .select('*')
-                .where({ email })   
+                .where({ email })
 
             if (!result) {
                 throw new Error('User not found')

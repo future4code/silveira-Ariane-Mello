@@ -2,9 +2,9 @@ POST http://localhost:3003/signup
 Content-Type: application/json
 
 {
-   	"name": "adeire",
-	"email": "adeire@email.com",
-	"password": "123456"
+   	"name": "",
+	"email": "",
+	"password": ""
 }
 
 ###
@@ -19,5 +19,21 @@ Content-Type: application/json
 	"password": "123456"
 }
 
+### 
+
+@token = {{login.response.body.token}}
+
 ###
 
+POST http://localhost:3003/post
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+   	"photo": "https://www.pexels.com/pt-br/foto/animal-bicho-azul-cachorro-12329480/",
+	"description": "Cachorrinho fofoqueiro na janela azul",
+	"type": "NORMAL"
+}
+
+###
+POST http://localhost:3003/postById/598ca454-acaf-490e-ac24-58f25dc42f94

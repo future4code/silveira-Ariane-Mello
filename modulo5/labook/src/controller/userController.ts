@@ -16,7 +16,7 @@ export class userController {
         try {
             const { email, password } = req.body
             const token = await new userBusiness().loginUser(email, password)
-            
+
             res.status(200).send({ token })
         } catch (error: any) {
             res.status(400).send(error.message || error.sqlMessage)

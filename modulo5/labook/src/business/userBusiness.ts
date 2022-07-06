@@ -17,14 +17,12 @@ export class userBusiness {
             }
 
             const id = generateId()
-
             const hashPassword = await hash(password)
-
             await new userDatabase().createUser(id, name, email, hashPassword)
-
             const token = generateToken({ id })
 
             return token
+
         } catch (error: any) {
             throw new Error(error.message || error.sqlMessage)
         }
@@ -36,8 +34,6 @@ export class userBusiness {
             }
 
             const user = await new userDatabase().loginUser(email)
-            console.log(user)
-
             const hashCompare = await compare(password, user.password)
 
             if (!hashCompare) {
