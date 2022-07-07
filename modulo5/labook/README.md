@@ -1,5 +1,6 @@
 <p>
 <a href="#sobre">Sobre</a> |
+<a href="#link">Link</a> |
 <a href="#orientacoes">Orientações</a> |
 <a href="#features">Features</a> |
 <a href="#tecnologia">Tecnologia</a> |
@@ -9,6 +10,10 @@
 <h1 id="sobre">📕 Projeto Labook</h1>
 
 <p>O Labook será uma rede social com o objetivo de promover a conexão e interação entre seus mais diversos usuários.</p>
+
+<h2 id="link">🔗 Link API: Link para visualização da documentação</h2>
+
+<a href="https://documenter.getpostman.com/view/20351230/UzJLQGun">Labook</a>
 
 <h2 id="orientacoes">🚨 Orientações para acesso</h2>
 
