@@ -1,0 +1,109 @@
+        * {
+            font-family: 'Courier Prime', monospace;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            float: auto;
+        }
+        
+        .perfil {
+            position: relative;
+            left: 400px;
+            top: 50px;
+        }
+        
+        .mensagem-ola {
+            margin: 25px;
+            text-align: center;
+            color: #BB3D92;
+            position: relative;
+        }
+        
+        .texto {
+            margin: 25px;
+            text-align: center;
+            text-indent: 0.5%;
+        }
+        
+        .skills {
+            margin: 25px;
+            text-align: center;
+            top: 30px;
+            position: relative;
+        }
+        
+        .img-skills {
+            position: relative;
+            left: 450px;
+            margin: 25px;
+            top: 5px;
+            width: 500px;
+        }
+        
+        .redes-sociais {
+            margin: 25px;
+            text-align: center;
+            top: -10px;
+            left: 20px;
+            position: relative;
+        }
+        
+        .icon {
+            margin: 25px;
+            width: 50px;
+            position: relative;
+            left: 280px;
+            display: flex;
+            top: -15px;
+        }
+        
+        .projetos-img1 {
+            margin: 25px;
+            width: 300px;
+            top: -100px;
+            position: relative;
+            right: -700px;
+        }
+        
+        .projetos-img2 {
+            margin: 25px;
+            width: 300px;
+            top: 50px;
+            position: relative;
+            left: 250px;
+        }
+        
+        .projetos {
+            margin: 25px;
+            text-align: center;
+            top: 10px;
+            position: relative;
+        }
+        
+        #formulario {
+            margin: 25px;
+            text-align: center;
+            top: -150px;
+            position: relative;
+        }
+        
+        .btn_submit:hover {
+            color: #BB3D92;
+            cursor: pointer;
+        }
+        
+        .texto-blackjack {
+            margin: 25px;
+            text-align: center;
+            top: -220px;
+            left: 150px;
+            position: relative;
+        }
+        
+        .texto-loja {
+            margin: 25px;
+            text-align: center;
+            top: -320px;
+            left: -200px;
+            position: relative;
+        }
