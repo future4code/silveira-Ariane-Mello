@@ -2,7 +2,7 @@ export class buyer {
     constructor(
         private name: string,
         private email: string,
-        private cpf: number
+        private cpf: string
     ) { }
     public getName() {
         return this.name

@@ -1,9 +1,9 @@
 export class creditCard {
     constructor(
         private cardHolderName: string,
-        private cardNumber: number,
+        private cardNumber: string,
         private cardExpirationDate: string,
-        private CVV: number
+        private CVV: string
     ) { }
     public getCardHolderName() {
         return this.cardHolderName
