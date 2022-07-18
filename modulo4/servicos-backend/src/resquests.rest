@@ -1,0 +1,5 @@
+GET http://localhost:3003/address/12246023
+
+###
+
+POST https://servicos-backend-ari.herokuapp.com/user/12246023

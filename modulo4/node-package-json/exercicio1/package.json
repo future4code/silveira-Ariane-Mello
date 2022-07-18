@@ -1,0 +1,11 @@
+{
+  "name": "aula-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "exercicio1.js",
+  "scripts": {
+    "start": "node ./exercicio1.js"
+  },
+  "author": "Ariane Tier",
+  "license": "ISC"
+}
