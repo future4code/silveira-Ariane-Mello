@@ -14,3 +14,9 @@ export class payment {
         return this.card
     }
 }
+
+export enum PAYMENTTYPE {
+    SLIP = 'SLIP',
+    CREDITCARD = 'CREDITCARD'
+}
+

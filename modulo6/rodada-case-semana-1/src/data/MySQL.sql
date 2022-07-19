@@ -22,7 +22,7 @@ CREATE TABLE payment_wirecard (
     id VARCHAR(255) PRIMARY KEY,
     amount VARCHAR(255) NOT NULL,
     type VARCHAR(255) NOT NULL,
-    card VARCHAR(255) NOT NULL
+    status VARCHAR(255) NOT NULL
 );
 
 
