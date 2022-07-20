@@ -240,5 +240,5 @@ describe('test class Payment Slip', () => {
                 expect.assertions(2)
             }
         })
-    })
+    }) 
 })

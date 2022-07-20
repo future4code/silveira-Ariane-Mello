@@ -1,29 +1,31 @@
 -- Active: 1658167139378@@35.226.146.116@3306@silveira-21814348-ariane-mello
-CREATE TABLE client_wirecard (
+CREATE TABLE wirecard_client (
     id VARCHAR(255) PRIMARY KEY
 );
 
-CREATE TABLE buyer_wirecard (
+CREATE TABLE wirecard_payment_creditcard (
     id VARCHAR(255) PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    cpf VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE creditcard_wirecard (
-    id VARCHAR(255) PRIMARY KEY,
+    client_id VARCHAR(255) NOT NULL,
+    buyer_name VARCHAR(255) NOT NULL,
+    buyer_email VARCHAR(255) NOT NULL,
+    buyer_cpf VARCHAR(255) NOT NULL,
+    payment_amount INT NOT NULL,
+    payment_type ENUM('CREDITCARD') NOT NULL,
     card_holder_name VARCHAR(255) NOT NULL,
     card_number VARCHAR(255) NOT NULL,
     card_expiration_date VARCHAR(255) NOT NULL,
-    cvv VARCHAR(255) NOT NULL
+    card_cvv VARCHAR(255) NOT NULL,
+    FOREIGN KEY (client_id) REFERENCES wirecard_client(id)
 );
 
-CREATE TABLE payment_wirecard (
+CREATE TABLE wirecard_payment_slip (
     id VARCHAR(255) PRIMARY KEY,
-    amount VARCHAR(255) NOT NULL,
-    type VARCHAR(255) NOT NULL,
-    status VARCHAR(255) NOT NULL
+    client_id VARCHAR(255) NOT NULL,
+    buyer_name VARCHAR(255) NOT NULL,
+    buyer_email VARCHAR(255) NOT NULL,
+    buyer_cpf VARCHAR(255) NOT NULL,
+    payment_amount INT NOT NULL,
+    payment_type ENUM('SLIP') NOT NULL,
+    FOREIGN KEY (client_id) REFERENCES wirecard_client(id)
 );
-
-
 

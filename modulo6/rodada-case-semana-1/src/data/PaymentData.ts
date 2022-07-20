@@ -12,3 +12,8 @@ export class PaymentData extends BaseDatabase {
         }
     }
 }
+
+//inserir cartao
+//inserir comprador 
+//inserir boleto
+
