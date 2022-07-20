@@ -3,5 +3,4 @@ import paymentController from "../controller/PaymentController";
 
 export const paymentRouter = Router()
 
-paymentRouter.post('/register', paymentController.registerPayment)
-// paymentRouter.get('/status', .status)
+paymentRouter.post('/paymentCreditCard', paymentController.registerPaymentCard)

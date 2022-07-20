@@ -3,38 +3,72 @@ import paymentBusiness from '../business/PaymentBusiness'
 import { registerPaymentInputDTO } from '../model/types'
 
 export class PaymentController {
-
-    async registerPayment(req: Request, res: Response): Promise<void> {
+    async registerPaymentCard(req: Request, res: Response): Promise<void> {
         try {
             const {
-                clientID,
-                buyerName,
-                buyerEmail,
-                buyerCPF,
-                paymentAmount,
-                paymentType,
-                cardHolderName,
-                cardNumber,
-                cardExpirationDate,
-                cardCVV
+                client_id,
+                buyer_name,
+                buyer_email,
+                buyer_cpf,
+                payment_amount,
+                payment_type,
+                card_holder_name,
+                card_number,
+                card_expiration_date,
+                card_cvv
             } = req.body
 
             const input: registerPaymentInputDTO = {
-                clientID,
-                buyerName,
-                buyerEmail,
-                buyerCPF,
-                paymentAmount,
-                paymentType,
-                cardHolderName,
-                cardNumber,
-                cardExpirationDate,
-                cardCVV
+                client_id,
+                buyer_name,
+                buyer_email,
+                buyer_cpf,
+                payment_amount,
+                payment_type,
+                card_holder_name,
+                card_number,
+                card_expiration_date,
+                card_cvv
             }
 
             paymentBusiness.paymentCard(input)
+            res.statusMessage = 'Payment successfully registered'
+            res.status(201).send()
+        } catch (error: any) {
+            res.status(400).send(error.message)
+        }
+    }
+    async registerPaymentSlip(req: Request, res: Response): Promise<void> {
+        try {
+            const {
+                client_id,
+                buyer_name,
+                buyer_email,
+                buyer_cpf,
+                payment_amount,
+                payment_type
+            } = req.body
 
-            res.status(200).send('Payment successfully registered')
+            const input: registerPaymentInputDTO = {
+                client_id,
+                buyer_name,
+                buyer_email,
+                buyer_cpf,
+                payment_amount,
+                payment_type
+            }
+
+            paymentBusiness.paymentSlip(input)
+            res.statusMessage = 'Payment successfully registered'
+            res.status(201).send()
+        } catch (error: any) {
+            res.status(400).send(error.message)
+        }
+    }
+
+    //pago e aguardando pagamento?
+    async paymentStatus(req: Request, res: Response): Promise<void> {
+        try {
         } catch (error: any) {
             res.status(400).send(error.message)
         }

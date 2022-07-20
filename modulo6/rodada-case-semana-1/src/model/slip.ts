@@ -1,4 +1,4 @@
-export class creditCard {
+export class slip {
     constructor(
         private id: string,
         private client_id: string,
@@ -6,11 +6,7 @@ export class creditCard {
         private buyer_email: string,
         private buyer_cpf: string,
         private payment_amount: number,
-        private payment_type: string,
-        private card_holder_name: string,
-        private card_number: string,
-        private card_expiration_date: string,
-        private card_cvv: string
+        private payment_type: string
     ) { }
     public getId() {
         return this.id
@@ -33,21 +29,10 @@ export class creditCard {
     public getPaymentType() {
         return this.payment_type
     }
-    public getCardHolderName() {
-        return this.card_holder_name
-    }
-    public getCardNumber() {
-        return this.card_number
-    }
-    public getCardExpirationDate() {
-        return this.card_expiration_date
-    }
-    public getCardCvv() {
-        return this.card_cvv
-    }
 }
 
 export enum PAYMENTTYPE {
     SLIP = 'SLIP',
     CREDITCARD = 'CREDITCARD'
 }
+
