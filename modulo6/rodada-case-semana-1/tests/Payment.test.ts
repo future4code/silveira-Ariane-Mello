@@ -27,18 +27,6 @@ describe('test class Payment Business', () => {
                 expect.assertions(1)
             }
         })
-        test('test invalid client ID', async () => {
-            const input = inputMock
-            input.clientID = ''
-            try {
-                await PaymentBusiness.paymentCard(input)
-            } catch (error: any) {
-                input.clientID = 'client'
-                expect(error.message).toEqual('Invalid Client ID')
-            } finally {
-                expect.assertions(1)
-            }
-        })
         test('test invalid buyer name', async () => {
             const input = inputMock
             input.buyerName = ''
@@ -153,11 +141,101 @@ describe('test class Payment Business', () => {
                 const insert = jest.fn(
                     (input) => PaymentBusiness.paymentCard(input)
                 )
-                const result = await insert(input)
+                await insert(input)
                 expect(insert(input)).resolves.not.toThrow()
                 expect(insert(input)).resolves.toBeUndefined()
             } catch (error: any) {
+            } finally {
+                expect.assertions(2)
+            }
+        })
+    })
+})
 
+describe('test class Payment Slip', () => {
+    describe('test payment slip method', () => {
+        test('test invalid client ID', async () => {
+            const input = inputMock
+            input.clientID = ''
+            try {
+                await PaymentBusiness.paymentSlip(input)
+            } catch (error: any) {
+                input.clientID = 'client'
+                expect(error.message).toEqual('Invalid Client ID')
+            } finally {
+                expect.assertions(1)
+            }
+        })
+        test('test invalid buyer name', async () => {
+            const input = inputMock
+            input.buyerName = ''
+            try {
+                await PaymentBusiness.paymentSlip(input)
+            } catch (error: any) {
+                input.buyerName = 'Ariane'
+                expect(error.message).toEqual('Invalid Buyer')
+            } finally {
+                expect.assertions(1)
+            }
+        })
+        test('test invalid buyer email', async () => {
+            const input = inputMock
+            input.buyerEmail = ''
+            try {
+                await PaymentBusiness.paymentSlip(input)
+            } catch (error: any) {
+                input.buyerEmail = 'ariane@email.com'
+                expect(error.message).toEqual('Invalid Buyer')
+            } finally {
+                expect.assertions(1)
+            }
+        })
+        test('test invalid buyer CPF', async () => {
+            const input = inputMock
+            input.buyerCPF = ''
+            try {
+                await PaymentBusiness.paymentSlip(input)
+            } catch (error: any) {
+                input.buyerCPF = '42123506800'
+                expect(error.message).toEqual('Invalid Buyer')
+            } finally {
+                expect.assertions(1)
+            }
+        })
+        test('test invalid payment amount', async () => {
+            const input = inputMock
+            input.paymentAmount = ''
+            try {
+                await PaymentBusiness.paymentSlip(input)
+            } catch (error: any) {
+                input.paymentAmount = 100
+                expect(error.message).toEqual('Invalid Payment Data')
+            } finally {
+                expect.assertions(1)
+            }
+        })
+        test('test invalid payment type', async () => {
+            const input = inputMock
+            input.paymentType = ''
+            try {
+                await PaymentBusiness.paymentSlip(input)
+            } catch (error: any) {
+                input.paymentType = 'SLIP'
+                expect(error.message).toEqual('Invalid Payment Data')
+            } finally {
+                expect.assertions(1)
+            }
+        })
+        test('test valid inputs', async () => {
+            const input = inputMock
+            try {
+                const insert = jest.fn(
+                    (input) => PaymentBusiness.paymentSlip(input)
+                )
+                await insert(input)
+                expect(insert(input)).resolves.not.toThrow()
+                expect(insert(input)).resolves.toBeUndefined()
+            } catch (error: any) {
             } finally {
                 expect.assertions(2)
             }
