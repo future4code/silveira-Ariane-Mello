@@ -4,7 +4,7 @@ export interface registerPaymentInputDTO {
     buyerEmail: string,
     buyerCPF: string,
     paymentAmount: number,
-    paymenType: string,
+    paymentType: string,
     cardHolderName?: string,
     cardNumber?: string,
     cardExpirationDate?: string,

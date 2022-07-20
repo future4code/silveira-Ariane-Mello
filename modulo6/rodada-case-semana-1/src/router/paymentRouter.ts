@@ -1,7 +1,7 @@
 import { Router } from "express";
-import PaymentController from "../controller/paymentController";
+import paymentController from "../controller/PaymentController";
 
 export const paymentRouter = Router()
 
-paymentRouter.post('/register', PaymentController.registerPayment)
+paymentRouter.post('/register', paymentController.registerPayment)
 // paymentRouter.get('/status', .status)

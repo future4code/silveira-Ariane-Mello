@@ -9,7 +9,7 @@ export class PaymentBusiness {
                 buyerEmail,
                 buyerCPF,
                 paymentAmount,
-                paymenType,
+                paymentType,
                 cardHolderName,
                 cardNumber,
                 cardExpirationDate,
@@ -22,7 +22,7 @@ export class PaymentBusiness {
             if (!buyerName || !buyerEmail || !buyerCPF) {
                 throw new Error('Invalid Buyer')
             }
-            if (!paymentAmount || !paymenType) {
+            if (!paymentAmount || !paymentType) {
                 throw new Error('Invalid Payment Data')
             }
             if (!cardHolderName || !cardNumber || !cardExpirationDate || !cardCVV) {
@@ -34,14 +34,14 @@ export class PaymentBusiness {
     }
     async paymentSlip(input: registerPaymentInputDTO) {
         try {
-            const { clientID, buyerName, buyerEmail, buyerCPF, paymentAmount, paymenType } = input
+            const { clientID, buyerName, buyerEmail, buyerCPF, paymentAmount, paymentType } = input
             if (!clientID) {
                 throw new Error('Invalid Client ID')
             }
             if (!buyerName || !buyerEmail || !buyerCPF) {
                 throw new Error('Invalid Buyer')
             }
-            if (!paymentAmount || !paymenType) {
+            if (!paymentAmount || !paymentType) {
                 throw new Error('Invalid Payment Data')
             }
         } catch (error: any) {
