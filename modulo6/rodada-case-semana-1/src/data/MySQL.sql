@@ -15,6 +15,7 @@ CREATE TABLE wirecard_payment_creditcard (
     card_number VARCHAR(255) NOT NULL,
     card_expiration_date VARCHAR(255) NOT NULL,
     card_cvv VARCHAR(255) NOT NULL,
+    payment_status ENUM('PENDING', 'APPROVED') DEFAULT 'APPROVED',
     FOREIGN KEY (client_id) REFERENCES wirecard_client(id)
 );
 
@@ -26,6 +27,7 @@ CREATE TABLE wirecard_payment_slip (
     buyer_cpf VARCHAR(255) NOT NULL,
     payment_amount INT NOT NULL,
     payment_type ENUM('SLIP') NOT NULL,
+    payment_status ENUM('APPROVED', 'PENDING') DEFAULT 'PENDING',
     FOREIGN KEY (client_id) REFERENCES wirecard_client(id)
 );
 

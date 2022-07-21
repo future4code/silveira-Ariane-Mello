@@ -30,10 +30,10 @@ export class PaymentController {
                 card_cvv
             }
             paymentBusiness.paymentCard(input)
-            res.statusMessage = 'Payment successfully registered'
-            res.status(201).send()
+            res.status(200).send('Payment successfully registered')
         } catch (error: any) {
-            res.status(400).send(error.message)
+            const { statusCode, message } = error
+            res.status(statusCode || 400).send({ message })
         }
     }
     async registerPaymentSlip(req: Request, res: Response): Promise<void> {
@@ -55,18 +55,32 @@ export class PaymentController {
                 payment_type
             }
             paymentBusiness.paymentSlip(input)
-            res.statusMessage = 'Payment successfully registered'
-            res.status(201).send()
+            res.status(200).send('Payment successfully registered')
         } catch (error: any) {
-            res.status(400).send(error.message)
+            const { statusCode, message } = error
+            res.status(statusCode || 400).send({ message })
         }
     }
-    async paymentStatus(req: Request, res: Response): Promise<void> {
+    async getPaymentCreditCard(req: Request, res: Response): Promise<void> {
         try {
+            const id = req.params.id as string
+            const result = await paymentBusiness.getPaymentCreditCard(id)
+            res.status(200).send(result)
         } catch (error: any) {
-            res.status(400).send(error.message)
+            const { statusCode, message } = error
+            res.status(statusCode || 400).send({ message })
         }
     }
-}//pago e aguardando pagamento?
+    async getPaymentSlip(req: Request, res: Response): Promise<void> {
+        try {
+            const id = req.params.id as string
+            const result = await paymentBusiness.getPaymentSlip(id)
+            res.status(200).send(result)
+        } catch (error: any) {
+            const { statusCode, message } = error
+            res.status(statusCode || 400).send({ message })
+        }
+    }
+}
 export default new PaymentController(
 )

@@ -7,6 +7,7 @@ export class creditCard {
         private buyer_cpf: string,
         private payment_amount: number,
         private payment_type: string,
+        private payment_status: string,
         private card_holder_name: string,
         private card_number: string,
         private card_expiration_date: string,
@@ -33,6 +34,9 @@ export class creditCard {
     public getPaymentType() {
         return this.payment_type
     }
+    public getPaymentStatus() {
+        return this.payment_status
+    }
     public getCardHolderName() {
         return this.card_holder_name
     }
@@ -51,3 +55,4 @@ export enum PAYMENTTYPE {
     SLIP = 'SLIP',
     CREDITCARD = 'CREDITCARD'
 }
+

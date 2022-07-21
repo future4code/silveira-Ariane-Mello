@@ -6,7 +6,8 @@ export class slip {
         private buyer_email: string,
         private buyer_cpf: string,
         private payment_amount: number,
-        private payment_type: string
+        private payment_type: string,
+        private payment_status: string
     ) { }
     public getId() {
         return this.id
@@ -28,6 +29,9 @@ export class slip {
     }
     public getPaymentType() {
         return this.payment_type
+    }
+    public getPaymentStatus() {
+        return this.payment_status
     }
 }
 
