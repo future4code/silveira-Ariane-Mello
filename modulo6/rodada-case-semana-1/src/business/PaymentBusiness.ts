@@ -1,5 +1,5 @@
 import { PaymentData } from "../data/PaymentData"
-import { paymentCreditCardDB, registerPaymentInputDTO } from "../model/types"
+import { paymentCreditCardDB, paymentCreditCardInputDTO, paymentSlipDB, paymentSlipInputDTO } from "../model/types"
 import { IdGenerator } from "../services/idGenerator"
 
 export class PaymentBusiness {
@@ -9,7 +9,7 @@ export class PaymentBusiness {
         private PaymentData: PaymentData
     ) {}
 
-    async paymentCard(input: registerPaymentInputDTO) {
+    async paymentCard(input: paymentCreditCardInputDTO) {
         try {
             const {
                 client_id,
@@ -50,14 +50,12 @@ export class PaymentBusiness {
                 card_expiration_date,
                 card_cvv
             }
-
             await this.PaymentData.insertPaymentCard(payment)
-            
         } catch (error: any) {
             throw new Error(error.message)
         }
     }
-    async paymentSlip(input: registerPaymentInputDTO) {
+    async paymentSlip(input: paymentSlipInputDTO) {
         try {
             const { client_id, buyer_name, buyer_email, buyer_cpf, payment_amount, payment_type } = input
             if (!client_id) {
@@ -69,7 +67,9 @@ export class PaymentBusiness {
             if (!payment_amount || !payment_type) {
                 throw new Error('Invalid Payment Data')
             }
-            const payment = {
+            const id = this.idGenerator.generateId()
+            const payment: paymentSlipDB = {
+                id,
                 client_id,
                 buyer_name,
                 buyer_email,
@@ -77,6 +77,7 @@ export class PaymentBusiness {
                 payment_amount,
                 payment_type
             }
+            await this.PaymentData.insertPaymentSlip(payment)
         } catch (error: any) {
             throw new Error(error.message)
         }

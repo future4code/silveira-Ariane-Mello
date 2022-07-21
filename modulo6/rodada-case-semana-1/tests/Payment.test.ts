@@ -1,27 +1,27 @@
 import PaymentBusiness from "../src/business/PaymentBusiness";
 
 const inputMock = {
-    clientID: 'client' as any,
-    buyerName: 'Ariane' as any,
-    buyerEmail: 'ariane@email.com' as any,
-    buyerCPF: '42123506800' as any,
-    paymentAmount: 100 as any,
-    paymentType: 'CREDITCARD' as any,
-    cardHolderName: 'Ariane Tier de Mello' as any,
-    cardNumber: '7531598524560001' as any,
-    cardExpirationDate: '07/23' as any,
-    cardCVV: '070' as any
+    client_id: 'client' as any,
+    buyer_name: 'Ariane' as any,
+    buyer_email: 'ariane@email.com' as any,
+    buyer_cpf: '42123506800' as any,
+    payment_amount: 100 as any,
+    payment_type: 'CREDITCARD' as any,
+    card_holder_name: 'Ariane Tier de Mello' as any,
+    card_number: '7531598524560001' as any,
+    card_expiration_date: '07/23' as any,
+    card_cvv: '070' as any
 }
 
 describe('test class Payment Business', () => {
     describe('test payment card method', () => {
         test('test invalid client ID', async () => {
             const input = inputMock
-            input.clientID = ''
+            input.client_id = ''
             try {
                 await PaymentBusiness.paymentCard(input)
             } catch (error: any) {
-                input.clientID = 'client'
+                input.client_id = 'client'
                 expect(error.message).toEqual('Invalid Client ID')
             } finally {
                 expect.assertions(1)
@@ -29,11 +29,11 @@ describe('test class Payment Business', () => {
         })
         test('test invalid buyer name', async () => {
             const input = inputMock
-            input.buyerName = ''
+            input.buyer_name = ''
             try {
                 await PaymentBusiness.paymentCard(input)
             } catch (error: any) {
-                input.buyerName = 'Ariane'
+                input.buyer_name = 'Ariane'
                 expect(error.message).toEqual('Invalid Buyer')
             } finally {
                 expect.assertions(1)
@@ -41,11 +41,11 @@ describe('test class Payment Business', () => {
         })
         test('test invalid buyer email', async () => {
             const input = inputMock
-            input.buyerEmail = ''
+            input.buyer_email = ''
             try {
                 await PaymentBusiness.paymentCard(input)
             } catch (error: any) {
-                input.buyerEmail = 'ariane@email.com'
+                input.buyer_email = 'ariane@email.com'
                 expect(error.message).toEqual('Invalid Buyer')
             } finally {
                 expect.assertions(1)
@@ -53,11 +53,11 @@ describe('test class Payment Business', () => {
         })
         test('test invalid buyer CPF', async () => {
             const input = inputMock
-            input.buyerCPF = ''
+            input.buyer_cpf = ''
             try {
                 await PaymentBusiness.paymentCard(input)
             } catch (error: any) {
-                input.buyerCPF = '42123506800'
+                input.buyer_cpf = '42123506800'
                 expect(error.message).toEqual('Invalid Buyer')
             } finally {
                 expect.assertions(1)
@@ -65,11 +65,11 @@ describe('test class Payment Business', () => {
         })
         test('test invalid payment amount', async () => {
             const input = inputMock
-            input.paymentAmount = undefined
+            input.payment_amount = undefined
             try {
                 await PaymentBusiness.paymentCard(input)
             } catch (error: any) {
-                input.paymentAmount = 100
+                input.payment_amount = 100
                 expect(error.message).toEqual('Invalid Payment Data')
             } finally {
                 expect.assertions(1)
@@ -77,11 +77,11 @@ describe('test class Payment Business', () => {
         })
         test('test invalid payment type', async () => {
             const input = inputMock
-            input.paymentType = ''
+            input.payment_type = ''
             try {
                 await PaymentBusiness.paymentCard(input)
             } catch (error: any) {
-                input.paymentType = 'CREDITCARD'
+                input.payment_type = 'CREDITCARD'
                 expect(error.message).toEqual('Invalid Payment Data')
             } finally {
                 expect.assertions(1)
@@ -89,11 +89,11 @@ describe('test class Payment Business', () => {
         })
         test('test invalid credit card', async () => {
             const input = inputMock
-            input.cardHolderName = ''
+            input.card_holder_name = ''
             try {
                 await PaymentBusiness.paymentCard(input)
             } catch (error: any) {
-                input.cardHolderName = 'Ariane Tier de Mello'
+                input.card_holder_name = 'Ariane Tier de Mello'
                 expect(error.message).toEqual('Invalid Credit Card')
             } finally {
                 expect.assertions(1)
@@ -101,11 +101,11 @@ describe('test class Payment Business', () => {
         })
         test('test invalid credit card', async () => {
             const input = inputMock
-            input.cardNumber = ''
+            input.card_number = ''
             try {
                 await PaymentBusiness.paymentCard(input)
             } catch (error: any) {
-                input.cardNumber = '7531598524560001'
+                input.card_number = '7531598524560001'
                 expect(error.message).toEqual('Invalid Credit Card')
             } finally {
                 expect.assertions(1)
@@ -113,11 +113,11 @@ describe('test class Payment Business', () => {
         })
         test('test invalid credit card', async () => {
             const input = inputMock
-            input.cardExpirationDate = ''
+            input.card_expiration_date = ''
             try {
                 await PaymentBusiness.paymentCard(input)
             } catch (error: any) {
-                input.cardExpirationDate = '07/23'
+                input.card_expiration_date = '07/23'
                 expect(error.message).toEqual('Invalid Credit Card')
             } finally {
                 expect.assertions(1)
@@ -125,11 +125,11 @@ describe('test class Payment Business', () => {
         })
         test('test invalid credit card', async () => {
             const input = inputMock
-            input.cardCVV = ''
+            input.card_cvv = ''
             try {
                 await PaymentBusiness.paymentCard(input)
             } catch (error: any) {
-                input.cardCVV = '070'
+                input.card_cvv = '070'
                 expect(error.message).toEqual('Invalid Credit Card')
             } finally {
                 expect.assertions(1)
@@ -156,11 +156,11 @@ describe('test class Payment Slip', () => {
     describe('test payment slip method', () => {
         test('test invalid client ID', async () => {
             const input = inputMock
-            input.clientID = ''
+            input.client_id = ''
             try {
                 await PaymentBusiness.paymentSlip(input)
             } catch (error: any) {
-                input.clientID = 'client'
+                input.client_id = 'client'
                 expect(error.message).toEqual('Invalid Client ID')
             } finally {
                 expect.assertions(1)
@@ -168,11 +168,11 @@ describe('test class Payment Slip', () => {
         })
         test('test invalid buyer name', async () => {
             const input = inputMock
-            input.buyerName = ''
+            input.buyer_name = ''
             try {
                 await PaymentBusiness.paymentSlip(input)
             } catch (error: any) {
-                input.buyerName = 'Ariane'
+                input.buyer_name = 'Ariane'
                 expect(error.message).toEqual('Invalid Buyer')
             } finally {
                 expect.assertions(1)
@@ -180,11 +180,11 @@ describe('test class Payment Slip', () => {
         })
         test('test invalid buyer email', async () => {
             const input = inputMock
-            input.buyerEmail = ''
+            input.buyer_email = ''
             try {
                 await PaymentBusiness.paymentSlip(input)
             } catch (error: any) {
-                input.buyerEmail = 'ariane@email.com'
+                input.buyer_email = 'ariane@email.com'
                 expect(error.message).toEqual('Invalid Buyer')
             } finally {
                 expect.assertions(1)
@@ -192,11 +192,11 @@ describe('test class Payment Slip', () => {
         })
         test('test invalid buyer CPF', async () => {
             const input = inputMock
-            input.buyerCPF = ''
+            input.buyer_cpf = ''
             try {
                 await PaymentBusiness.paymentSlip(input)
             } catch (error: any) {
-                input.buyerCPF = '42123506800'
+                input.buyer_cpf = '42123506800'
                 expect(error.message).toEqual('Invalid Buyer')
             } finally {
                 expect.assertions(1)
@@ -204,11 +204,11 @@ describe('test class Payment Slip', () => {
         })
         test('test invalid payment amount', async () => {
             const input = inputMock
-            input.paymentAmount = ''
+            input.payment_amount = ''
             try {
                 await PaymentBusiness.paymentSlip(input)
             } catch (error: any) {
-                input.paymentAmount = 100
+                input.payment_amount = 100
                 expect(error.message).toEqual('Invalid Payment Data')
             } finally {
                 expect.assertions(1)
@@ -216,11 +216,11 @@ describe('test class Payment Slip', () => {
         })
         test('test invalid payment type', async () => {
             const input = inputMock
-            input.paymentType = ''
+            input.payment_type = ''
             try {
                 await PaymentBusiness.paymentSlip(input)
             } catch (error: any) {
-                input.paymentType = 'SLIP'
+                input.payment_type = 'SLIP'
                 expect(error.message).toEqual('Invalid Payment Data')
             } finally {
                 expect.assertions(1)
@@ -240,5 +240,5 @@ describe('test class Payment Slip', () => {
                 expect.assertions(2)
             }
         })
-    }) 
+    })
 })
