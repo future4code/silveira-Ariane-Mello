@@ -1,5 +1,6 @@
 import { PaymentData } from "../data/PaymentData"
 import { CustomError } from "../error/CustomError"
+import { slip } from "../model/slip"
 import { paymentCreditCardDB, paymentCreditCardInputDTO, paymentSlipDB, paymentSlipInputDTO } from "../model/types"
 import { IdGenerator } from "../services/idGenerator"
 
@@ -56,6 +57,19 @@ export class PaymentBusiness {
             throw new CustomError(error.statusCode, error.message)
         }
     }
+    private numberRandom = (length: number) => {
+        return Math.floor(Math.random() * length)
+    }
+
+    private slipNumber = () => {
+        const number = '0123456789'
+        let random = ''
+        for(let i = 0; i <= 47; i++) {
+            const index = Math.floor(this.numberRandom(number.length -1))
+            random += number[index]
+        }
+        return random
+    }
     async paymentSlip(input: paymentSlipInputDTO) {
         try {
             const { client_id, buyer_name, buyer_email, buyer_cpf, payment_amount, payment_type } = input
@@ -76,9 +90,14 @@ export class PaymentBusiness {
                 buyer_email,
                 buyer_cpf,
                 payment_amount,
-                payment_type
+                payment_type,
+                slipNumber: this.slipNumber()
             }
             await this.PaymentData.insertPaymentSlip(payment)
+
+            const response = {slipNumber: payment.slipNumber}
+            return response
+
         } catch (error: any) {
             throw new CustomError(error.statusCode, error.message)
         }

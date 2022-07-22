@@ -54,8 +54,9 @@ export class PaymentController {
                 payment_amount,
                 payment_type
             }
-            paymentBusiness.paymentSlip(input)
-            res.status(200).send('Payment successfully registered')
+           const result = await paymentBusiness.paymentSlip(input)
+
+            res.status(200).send(result)
         } catch (error: any) {
             const { statusCode, message } = error
             res.status(statusCode || 400).send({ message })

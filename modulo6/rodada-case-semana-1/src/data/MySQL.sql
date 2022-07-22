@@ -27,6 +27,7 @@ CREATE TABLE wirecard_payment_slip (
     buyer_cpf VARCHAR(255) NOT NULL,
     payment_amount INT NOT NULL,
     payment_type ENUM('SLIP') NOT NULL,
+    slipNumber VARCHAR(255) NOT NULL,
     payment_status ENUM('APPROVED', 'PENDING') DEFAULT 'PENDING',
     FOREIGN KEY (client_id) REFERENCES wirecard_client(id)
 );

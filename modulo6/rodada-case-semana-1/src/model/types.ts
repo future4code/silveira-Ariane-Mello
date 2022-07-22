@@ -14,6 +14,6 @@ export type paymentCreditCardInputDTO = paymentSlipInputDTO & {
     card_cvv?: string
 }
 
-export type paymentSlipDB = paymentSlipInputDTO & { id: string }
+export type paymentSlipDB = paymentSlipInputDTO & { id: string, slipNumber: string }
 
 export type paymentCreditCardDB = paymentCreditCardInputDTO & { id: string }
