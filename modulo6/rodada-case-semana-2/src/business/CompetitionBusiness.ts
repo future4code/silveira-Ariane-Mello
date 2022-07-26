@@ -10,16 +10,16 @@ export class CompetitionBusiness {
     ) { }
     async createCompetition(input: createCompetitionDTO) {
         try {
-            const { name, date, status_competition } = input
-            if (!name || !date) {
+            const { competition_name, start_date, end_date } = input
+            if (!competition_name || !start_date || !end_date) {
                 throw new CustomError(422, 'Invalid Parameter')
             }
-            const id = this.idGenerator.generateId()
+            const id_competition = this.idGenerator.generateId()
             const create: createCompetitionDB = {
-                id,
-                name,
-                date,
-                status_competition
+                id_competition,
+                competition_name,
+                start_date,
+                end_date
             }
             await this.competitionDataBase.createCompetition(create)
         } catch (error: any) {

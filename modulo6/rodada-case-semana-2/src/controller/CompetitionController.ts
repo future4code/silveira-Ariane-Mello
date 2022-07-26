@@ -5,12 +5,11 @@ import { createCompetitionDTO } from "../model/types"
 export class CompetitionController {
     async createCompetition(req: Request, res: Response): Promise<void> {
         try {
-            const { name, date, status_competition } = req.body
-
+            const { competition_name, start_date, end_date } = req.body
             const input: createCompetitionDTO = {
-                name,
-                date,
-                status_competition
+                competition_name,
+                start_date,
+                end_date
             }
             competitionBusiness.createCompetition(input)
             res.status(200).send('Competition created successfully')
@@ -23,4 +22,3 @@ export class CompetitionController {
 
 export default new CompetitionController(
 )
-
