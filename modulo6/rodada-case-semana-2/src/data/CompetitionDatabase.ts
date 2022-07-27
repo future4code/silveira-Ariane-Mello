@@ -13,9 +13,9 @@ export class CompetitionDatabase extends BaseDatabase {
     }
     async searchCompetition(competition_name: string) {
         try {
-            await BaseDatabase.connection('estante_virtual_competition')
-                .select('*') 
-                .where({competition_name}) 
+           return await BaseDatabase.connection('estante_virtual_competition')
+                .select('*')
+                .where({ competition_name })
         } catch (error: any) {
             throw new CustomError(400, error.sqlMessage)
         }
