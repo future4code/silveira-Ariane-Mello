@@ -1,0 +1,13 @@
+{
+  "name": "estrutura-de-dados",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+		"start:dev": "ts-node-dev ./src/index.ts",
+    "start": "node ./build/index.js",
+    "build": "tsc"  
+},
+  "author": "",
+  "license": "ISC"
+}
