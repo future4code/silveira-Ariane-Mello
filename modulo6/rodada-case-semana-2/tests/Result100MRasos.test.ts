@@ -3,7 +3,7 @@ import ResultBusinessMRasos from "../src/business/ResultBusiness100MRasos"
 const inputMock = {
     competition_name: '100m Rasos' as any,
     athlete_name: 'Ariane' as any,
-    value: '70' as any,
+    highest_value: '70' as any,
     unity: 's' as any
 }
 
@@ -34,11 +34,11 @@ describe('test Result Business', () => {
     })
     test('test create competition invalid input value', async () => {
         const input = inputMock
-        input.value = ''
+        input.highest_value = ''
         try {
             await ResultBusinessMRasos.registerResult100MRasos(input)
         } catch (error: any) {
-            input.value = '70'
+            input.highest_value = '70'
             expect(error.message).toEqual('Invalid Parameter')
         } finally {
             expect.assertions(1)
