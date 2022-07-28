@@ -6,11 +6,11 @@ import { registerResultMRasosDTO } from "../model/types"
 export class Result100MRasosController {
     async registerResult100MRasos(req: Request, res: Response): Promise<void> {
         try {
-            const { competition_name, athlete_name, value, unity } = req.body
+            const { competition_name, athlete_name, highest_value, unity } = req.body
             const input: registerResultMRasosDTO = {
                 competition_name,
                 athlete_name,
-                value,
+                highest_value,
                 unity
             }
             await resultBusinessMRasos.registerResult100MRasos(input)

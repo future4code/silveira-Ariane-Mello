@@ -12,8 +12,8 @@ export class ResultBusinessMRasos {
     ) { }
     async registerResult100MRasos(input: registerResultMRasosDTO) {
         try {
-            const { competition_name, athlete_name, value, unity } = input
-            if (!competition_name || !athlete_name || !value || !unity) {
+            const { competition_name, athlete_name, highest_value, unity } = input
+            if (!competition_name || !athlete_name || !highest_value || !unity) {
                 throw new CustomError(422, 'Invalid Parameter')
             }
 
@@ -30,7 +30,7 @@ export class ResultBusinessMRasos {
                 id_athlete,
                 competition_name,
                 athlete_name,
-                value,
+                highest_value,
                 unity
             }
             await this.resultDatabase.registerResult100MRasos(register)

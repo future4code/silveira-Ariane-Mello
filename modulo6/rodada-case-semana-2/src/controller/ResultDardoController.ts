@@ -6,13 +6,13 @@ import { registerResultDardoDTO } from "../model/types"
 export class ResultDardoController {
     async registerResultDardo(req: Request, res: Response): Promise<void> {
         try {
-            const { competition_name, athlete_name, value_1, value_2, value_3, unity } = req.body
+            const { competition_name, athlete_name, highest_value, average_value, lowest_value, unity } = req.body
             const input: registerResultDardoDTO = {
                 competition_name,
                 athlete_name,
-                value_1,
-                value_2,
-                value_3,
+                highest_value,
+                average_value,
+                lowest_value,
                 unity
             }
             await resultBusinessDardo.registerResultDardo(input)

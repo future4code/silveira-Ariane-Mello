@@ -9,9 +9,9 @@ export type createCompetitionDB = createCompetitionDTO & { id_competition: strin
 export type registerResultDardoDTO = {
     competition_name: string,
     athlete_name: string,
-    value_1: string,
-    value_2: string,
-    value_3: string,
+    highest_value: string,
+    average_value: string,
+    lowest_value: string,
     unity: string
 }
 
@@ -20,7 +20,7 @@ export type registerResultsDB = registerResultDardoDTO & { id_athlete: string }
 export type registerResultMRasosDTO = {
     competition_name: string,
     athlete_name: string,
-    value: string,
+    highest_value: string,
     unity: string
 }
 

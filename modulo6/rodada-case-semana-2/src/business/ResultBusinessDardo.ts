@@ -12,8 +12,8 @@ export class ResultBusinessDardo {
     ) { }
     async registerResultDardo(input: registerResultDardoDTO) {
         try {
-            const { competition_name, athlete_name, value_1, value_2, value_3, unity } = input
-            if (!competition_name || !athlete_name || !value_1 || !value_2 || !value_3 || !unity) {
+            const { competition_name, athlete_name, highest_value, average_value, lowest_value, unity } = input
+            if (!competition_name || !athlete_name || !highest_value || !average_value || !lowest_value || !unity) {
                 throw new CustomError(422, 'Invalid Parameter')
             }
 
@@ -26,15 +26,23 @@ export class ResultBusinessDardo {
 
             const id_athlete = this.idGenerator.generateId()
 
+            let firstValue = highest_value
+            let secondValue = average_value
+            let thirdValue = lowest_value
+
+            if(average_value > highest_value) firstValue = average_value, secondValue = highest_value
+            if(lowest_value > highest_value) firstValue = lowest_value, secondValue = highest_value, thirdValue = average_value
+
             const register: registerResultsDB = {
                 id_athlete,
                 competition_name,
                 athlete_name,
-                value_1,
-                value_2,
-                value_3,
+                highest_value: firstValue,
+                average_value: secondValue,
+                lowest_value: thirdValue,
                 unity
             }
+
             await this.resultDatabase.registerResultDardo(register)
         } catch (error: any) {
             throw new CustomError(error.statusCode, error.message)
@@ -59,8 +67,8 @@ export class ResultBusinessDardo {
 
             return ranking
 
-            
-            
+
+
         } catch (error: any) {
             throw new CustomError(error.statusCode, error.message)
         }
