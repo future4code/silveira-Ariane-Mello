@@ -34,6 +34,19 @@ export class DogWalkBusiness {
             throw new CustomError(error.statusCode, error.message)
         }
     }
+    async getDogWalk(id: string) {
+        try {
+            if (!id) {
+                throw new CustomError(422, 'Invalid Parameter')
+            }
+
+            const walk = await this.dogWalkDatabase.getDogWalk(id)
+
+            return walk
+        } catch (error: any) {
+            throw new CustomError(error.statusCode, error.message)
+        }
+    }
 }
 
 export default new DogWalkBusiness(

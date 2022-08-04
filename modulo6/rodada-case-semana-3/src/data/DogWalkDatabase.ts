@@ -11,4 +11,13 @@ export class DogWalkDatabase extends BaseDatabase {
             throw new CustomError(400, error.sqlMessage)
         }
     }
+    async getDogWalk(id: string) {
+        try {
+            await BaseDatabase.connection('dog_hero_walk')
+                .select('duration')
+                .where({ id })
+        } catch (error: any) {
+            throw new CustomError(400, error.sqlMessage)
+        }
+    }
 }
