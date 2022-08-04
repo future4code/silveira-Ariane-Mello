@@ -2,11 +2,13 @@ import { CustomError } from "../error/CustomError";
 import { IdGenerator } from "../services/idGenerator";
 import { DogWalkDatabase } from "../data/DogWalkDatabase";
 import { dogWalkDB, dogWalkDTO } from "../model/types";
+import { Price } from "../model/Price";
 
 export class DogWalkBusiness {
     constructor(
         private idGenerator: IdGenerator,
-        private dogWalkDatabase: DogWalkDatabase
+        private dogWalkDatabase: DogWalkDatabase,
+        private price: Price
     ) { }
     async createDogWalk(input: dogWalkDTO) {
         try {
@@ -14,9 +16,10 @@ export class DogWalkBusiness {
             if (!date || !duration || !latitude || !longitude || !pets || !start_time || !end_time) {
                 throw new CustomError(422, 'Invalid Parameter')
             }
+          
             const id = this.idGenerator.generateId()
             const status = 'SCHEDULED'
-            const price = 1
+            const price = this.price.priceDogWalk(duration, pets)
             const create: dogWalkDB = {
                 id,
                 status,
@@ -51,5 +54,6 @@ export class DogWalkBusiness {
 
 export default new DogWalkBusiness(
     new IdGenerator(),
-    new DogWalkDatabase()
+    new DogWalkDatabase(),
+    new Price()
 )
